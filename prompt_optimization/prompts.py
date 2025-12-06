@@ -20,3 +20,6 @@ vegfru_greens = '''I'm trying to write a prompt used to generate description for
         The three types of flowers are: A. Dandelion, B. Shepherd's purse, C. Prickly lettuce.'''
 vegfru_allium = '''I'm trying to write a prompt used to generate description for the vegetable in the image, where the generated description can enhance the zero-shot classification of the vegetable in the image.
         The three types of flowers are: A. Leek, B. Green Chinese onion, C. Bunching onion.'''
+Generic_Task = '''I'm trying to write a prompt used to generate a detailed visual description for the object in the image. This description will be used to classify the object into its correct category.
+        The goal is to generate a description that captures distinctive features to distinguish this object from other similar objects.
+        '''

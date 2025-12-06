@@ -49,9 +49,10 @@ def run_evaluate(predictor, prompt, exs, attributes_dict=None):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--task_name', default='CUB_cuckoo',
-                        choices=['iNat_butterfly', 'iNat_lupine', 'Stanford_terrier',
-                                 'CUB_cuckoo', 'CUB_oriole', 'CUB_vireo', 'vegfru_greens', 'vegfru_allium'])
+    parser.add_argument('--task_name', default='cub',
+                        help='数据集名称: cub, dog, flower, car, pet, aircraft, eurosat, food, dtd, '
+                             'caltech101, caltech256, sun397, imagenet_a, imagenet_r, imagenet_1k, '
+                             'birdsnap, ucf, imagenet_sketch, imagenet_v2 或原有任务名')
     parser.add_argument('--model', default='gemini', choices=['gemini', 'gpt4o', 'sglang_qwen'])
     parser.add_argument('--out_num', default='0')
     parser.add_argument('--data_dir', default='/datasets')

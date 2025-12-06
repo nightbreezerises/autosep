@@ -1,0 +1,25 @@
+2025-12-07 00:27:45.953715
+{"task_name": "cub", "model": "sglang_qwen", "out_num": "1", "data_dir": "./datasets", "result_folder": "autosep", "mode": "test", "seed": 42, "attributes": true, "generate": true, "temperature": 0.0, "max_threads": 8, "prompt_idx": 0, "exp": 1, "n_test": 3, "parallel": true, "train_ratio": 0.5, "out": "autosep/results/1_cub/evaluate/1_cub_0_1.txt"}
+generate_prompt-------------------------
+# Task
+Describe the main object in the given image in comprehensive detail. Focus on distinctive visual features that help identify its specific category or species.
+
+Please cover the following aspects if applicable:
+- Overall shape and body structure
+- Specific colors and patterns on different body parts (e.g., head, wings, body, legs)
+- Textures (e.g., fur, feathers, scales, smooth, metallic)
+- Unique distinctive markings
+
+Ignore the background, lighting, and surrounding context. Focus solely on the object itself.
+
+prompt-------------------------
+# Task
+Determine what kind of bird this image shows from the 200 bird species in the CUB-200-2011 dataset.
+
+# Prediction
+Text: The image shows the following features: {{ text }}
+
+Based on the visual description above, identify the specific bird species. The answer is:
+
+
+No attributes generated for test-197	/data/oldhome/hdl/project/autosep_test/datasets/CUB_200_2011/CUB_200_2011/images/018.Spotted_Catbird/Spotted_Catbird_0021_796798.jpg

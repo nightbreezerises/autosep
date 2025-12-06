@@ -12,9 +12,58 @@ import scorers
 import optimizers
 import generator
 import evaluators
-from get_utils import get_predictor, get_task_class, get_exs
+from get_utils import get_predictor, get_task_class, get_exs, is_generic_dataset
 
 random.seed(42)
+
+# 通用数据集的默认 prompt 模板
+DEFAULT_GENERATE_PROMPT = """# Task
+Describe the main object in the given image in comprehensive detail. Focus on distinctive visual features that help identify its specific category or species.
+
+Please cover the following aspects if applicable:
+- Overall shape and body structure
+- Specific colors and patterns on different body parts (e.g., head, wings, body, legs)
+- Textures (e.g., fur, feathers, scales, smooth, metallic)
+- Unique distinctive markings
+
+Ignore the background, lighting, and surrounding context. Focus solely on the object itself."""
+
+DEFAULT_PREDICT_PROMPT = """# Task
+Based on the visual description provided below, identify the specific category of the object.
+
+# Prediction
+Text: The image shows the following features: {{ text }}
+
+Instruction: Compare the described features with the typical characteristics of possible categories. Identify the best match based on the distinctive attributes.
+
+The answer is:"""
+
+
+def load_prompts(task_name):
+    """
+    加载 prompt 模板
+    
+    对于通用数据集，使用默认模板
+    对于原有任务，从文件加载
+    """
+    prompt_dir = os.path.join(os.path.dirname(__file__), '..', 'prompts')
+    
+    # 检查是否有对应的 prompt 文件
+    generate_file = os.path.join(prompt_dir, f'{task_name}_generate.md')
+    multi_file = os.path.join(prompt_dir, f'{task_name}_multi.md')
+    
+    if os.path.exists(generate_file) and os.path.exists(multi_file):
+        # 使用已有的 prompt 文件
+        candidates = [open(generate_file).read()]
+        pred_prompt = open(multi_file).read()
+        print(f"[load_prompts] 使用已有 prompt: {generate_file}")
+    else:
+        # 使用默认模板
+        candidates = [DEFAULT_GENERATE_PROMPT]
+        pred_prompt = DEFAULT_PREDICT_PROMPT
+        print(f"[load_prompts] 使用默认 prompt 模板 (数据集: {task_name})")
+    
+    return candidates, pred_prompt
 
 
 def get_evaluator(evaluator):
@@ -39,9 +88,10 @@ def get_scorer(scorer):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--task_name', default='CUB_cuckoo',
-                        choices=['iNat_butterfly', 'iNat_lupine', 'Stanford_terrier',
-                                'CUB_cuckoo', 'CUB_oriole', 'CUB_vireo', 'vegfru_greens', 'vegfru_allium'])
+    parser.add_argument('--task_name', default='cub',
+                        help='数据集名称: cub, dog, flower, car, pet, aircraft, eurosat, food, dtd, '
+                             'caltech101, caltech256, sun397, imagenet_a, imagenet_r, imagenet_1k, '
+                             'birdsnap, ucf, imagenet_sketch, imagenet_v2 或原有任务名')
     parser.add_argument('--model', default='gemini', choices=['gemini', 'gpt4o', 'sglang_qwen'])
     parser.add_argument('--gradient_model', default='gemini')
     parser.add_argument('--data_dir', default='/datasets')
@@ -89,7 +139,8 @@ def get_args():
 
 if __name__ == '__main__':
     args = get_args()
-    args.out = f"results/{args.out_num}_{args.task_name}/apo_multi_{args.task_name}_{args.out_num}.txt"
+    # 统一保存到 autosep/results/ 目录
+    args.out = f"autosep/results/{args.out_num}_{args.task_name}/apo_multi_{args.task_name}_{args.out_num}.txt"
     if os.path.exists(args.out):
         os.remove(args.out)
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
@@ -112,8 +163,8 @@ if __name__ == '__main__':
 
     train_exs, val_exs, test_exs = get_exs(args, task)
 
-    candidates = [open(f'../prompts/{args.task_name}_generate.md').read()]
-    pred_prompt = open(f'../prompts/{args.task_name}_multi.md').read()
+    # 加载 prompt 模板（支持通用数据集和原有任务）
+    candidates, pred_prompt = load_prompts(args.task_name)
     with open(args.out, 'a') as outf:
         outf.write(f'pred_prompt-------------------------\n')
         outf.write(f'{pred_prompt}\n\n')
@@ -173,9 +224,13 @@ if __name__ == '__main__':
             with open(args.out, 'a') as outf:
                 outf.write(f'{metrics}\n')
 
-        with open(f'results/{args.out_num}_{args.task_name}/{args.out_num}_train_attr.json', 'w') as json_file:
+        # 保存属性缓存到 autosep/results/ 目录
+        result_dir = f'autosep/results/{args.out_num}_{args.task_name}'
+        os.makedirs(result_dir, exist_ok=True)
+        with open(f'{result_dir}/{args.out_num}_train_attr.json', 'w') as json_file:
             json.dump(attribute_cache, json_file)
-        with open(f'results/{args.out_num}_{args.task_name}/{args.out_num}_test_attr.json', 'w') as json_file:
+        with open(f'{result_dir}/{args.out_num}_test_attr.json', 'w') as json_file:
             json.dump(test_attr_cache, json_file)
+        print(f"已保存属性缓存到: {result_dir}/")
 
     print("DONE!")

@@ -24,9 +24,9 @@ CUDA_VISIBLE_DEVICES=$GPU python3 -m sglang.launch_server \
   --tp-size $tensor_parallel_size \
   --trust-remote-code \
   --mem-fraction-static $mem_fraction_static \
-  --chat-template qwen2-vl \
+  --chat-template qwen2.5-vl \
   --disable-radix-cache \
   --chunked-prefill-size -1
 
 # bash scripts/launch/Qwen2-VL-7B-Instruct.sh 4,5,6,7
-# nohup bash scripts/launch/Qwen2.5-VL-7B-Instruct.sh 0 > qwen_server.log 2>&1 &
+# nohup bash scripts/launch/Qwen2.5-VL-7B-Instruct.sh 3 > qwen_server.log 2>&1 &

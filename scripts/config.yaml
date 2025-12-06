@@ -1,0 +1,57 @@
+# AutoSEP Pipeline Configuration
+# ================================
+
+# 环境配置
+environment:
+  conda_path: /home/hdl/miniconda3  # conda 安装路径
+  conda_env: autosep                 # conda 环境名称
+
+# 路径配置 (支持相对路径，相对于项目根目录)
+paths:
+  data_dir: ./datasets  # 数据集目录
+  log_dir: ./logs       # 日志目录
+  gpu: 3
+
+# 数据集名称
+# 细粒度分类: cub, dog, flower, car, pet, aircraft, food, birdsnap
+# 通用分类:   caltech101, caltech256, dtd, eurosat, ucf, sun397
+# ImageNet:   imagenet_1k, imagenet_a, imagenet_r, imagenet_sketch, imagenet_v2
+dataset: cub
+
+# 模型名称
+# 支持，千问系列：Qwen3-VL-8B-Instruct，Qwen2.5-VL-7B-Instruct
+model: Qwen2.5-VL-7B-Instruct
+
+# AutoSEP 优化参数 (autosep/main.py)
+autosep:
+  train_ratio: 10.0  # 调试使用: 从训练集抽百分之多少做优化 (1-100)
+  n_train: 30
+  n_val: 30
+  n_test: 30
+  rounds: 6
+  beam_size: 4
+  minibatch_size: 50
+  n_gradients: 4
+  mc_samples_per_step: 1
+  max_expansion_factor: 5
+  test_eval: true
+  temperature: 0.0
+  max_threads: 8
+
+
+# 分类评估参数 (classification.py)
+classification:
+  test_ratio: 10.0   # 调试使用: 从测试集抽百分之多少做分类 (1-100)
+  mode: test
+  n_test: 30
+  prompt_idx: 0
+  parallel: true
+  generate: true
+  attributes: true
+  temperature: 0.0
+  max_threads: 8
+
+
+# 实验编号（用于区分不同实验）
+experiment:
+  out_num: 1

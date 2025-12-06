@@ -13,6 +13,24 @@ import openai
 from openai import OpenAI, BadRequestError
 import pathlib
 
+# 全局变量用于缓存 MLLMBot 实例，避免重复加载模型
+_mllm_bot_instance = None
+_current_model_name = None  # 记录当前加载的模型名称
+
+# 支持的模型配置
+SUPPORTED_MODELS = {
+    'Qwen2.5-VL-7B-Instruct': {
+        'module': 'agents.mllm_bot_qwen_2_5_vl',
+        'model_tag': 'Qwen2.5-VL-7B',
+        'model_name': 'Qwen2.5-VL-7B-Instruct',
+    },
+    'Qwen3-VL-8B-Instruct': {
+        'module': 'agents.mllm_bot_qwen_3_vl',
+        'model_tag': 'Qwen3-VL-8B',
+        'model_name': 'Qwen3-VL-8B-Instruct',
+    },
+}
+
 openai.organization = config.openai_organization
 media = pathlib.Path(__file__).parents[1] / "third_party"
 
@@ -202,57 +220,101 @@ def get_gemini_upload_file(img_paths):
     return files, file_names
 
 
+def _get_mllm_bot(model_name=None):
+    """
+    获取或创建 MLLMBot 单例实例
+    
+    Args:
+        model_name: 模型名称，支持:
+            - 'Qwen2.5-VL-7B-Instruct' (默认)
+            - 'Qwen3-VL-8B-Instruct'
+    """
+    global _mllm_bot_instance, _current_model_name
+    
+    # 默认使用 Qwen2.5-VL
+    if model_name is None:
+        model_name = os.environ.get('AUTOSEP_MODEL', 'Qwen2.5-VL-7B-Instruct')
+    
+    # 如果模型已加载且名称匹配，直接返回
+    if _mllm_bot_instance is not None and _current_model_name == model_name:
+        return _mllm_bot_instance
+    
+    # 检查模型是否支持
+    if model_name not in SUPPORTED_MODELS:
+        raise ValueError(
+            f"不支持的模型: {model_name}\n"
+            f"支持的模型: {list(SUPPORTED_MODELS.keys())}"
+        )
+    
+    # 加载新模型
+    model_config = SUPPORTED_MODELS[model_name]
+    print(f"[api_utils] 加载模型: {model_name}")
+    
+    # 动态导入模块
+    import importlib
+    module = importlib.import_module(model_config['module'])
+    MLLMBot = module.MLLMBot
+    
+    _mllm_bot_instance = MLLMBot(
+        model_tag=model_config['model_tag'],
+        model_name=model_config['model_name'],
+        pai_enable_attn=False,
+        device='cuda',
+        device_id=0,
+        bit8=False,
+        max_answer_tokens=1024
+    )
+    _current_model_name = model_name
+    
+    return _mllm_bot_instance
+
+
 def sglang_model(prompt, img_paths=None, temperature=0.7, n=1, top_p=1, max_tokens=1024, model_name='sglang_qwen'):
-    import sglang as sgl
-    from sglang import function
-    from sglang.lang.chat_template import get_chat_template
-
-    if 'qwen' in model_name:
-        host = "http://localhost:30000"
-        template = "qwen2-vl"
-    else:
-        raise Exception(f'Unsupported task: {model_name}')
-
-    # sgl.set_default_backend(sgl.RuntimeEndpoint(host))
-    backend = sgl.RuntimeEndpoint(host)
-
-    chat_template = get_chat_template(template)
-    backend.chat_template = chat_template
-
-    @function
-    def image_qa(s, question, image_path=None):
-        # s += sgl.user(sgl.image(image_path) + question)
-        if image_path != None:
-            s += sgl.user(sgl.image(image_path))
-        s += sgl.user(question)
-        s += sgl.assistant(sgl.gen("answer"))
-
+    """
+    使用本地 Qwen VL 模型进行推理
+    
+    Args:
+        prompt: 输入提示
+        img_paths: 图片路径列表
+        temperature: 温度参数（当前实现不支持，保留接口兼容）
+        n: 生成数量（当前实现固定为1）
+        top_p: top_p参数（当前实现不支持，保留接口兼容）
+        max_tokens: 最大生成token数
+        model_name: 模型名称（保留接口兼容）
+    
+    Returns:
+        list: 包含生成文本的列表
+    """
+    if 'qwen' not in model_name.lower():
+        raise Exception(f'Unsupported model: {model_name}')
+    
+    # 从环境变量获取模型名称
+    actual_model = os.environ.get('AUTOSEP_MODEL', 'Qwen2.5-VL-7B-Instruct')
+    mllm_bot = _get_mllm_bot(actual_model)
+    
     num_attempts = 0
     while num_attempts < 5:
         num_attempts += 1
         try:
-            if img_paths == None:
-                state = image_qa.run(question=prompt,
-                                     image_path=None,
-                                     backend=backend,
-                                     max_new_tokens=max_tokens,
-                                     temperature=temperature,
-                                     top_p=top_p)
+            if img_paths is None:
+                # 纯文本推理
+                response = mllm_bot.call_llm(prompt)
+                return [response.strip()]
             else:
-                state = image_qa.run(question=prompt,
-                                     image_path=img_paths[0],
-                                     backend=backend,
-                                     max_new_tokens=max_tokens,
-                                     temperature=temperature,
-                                     top_p=top_p)
-            num_attempts = 5
-            return [state["answer"].strip()]
+                # 图文推理
+                raw_image = PIL.Image.open(img_paths[0])
+                reply, _ = mllm_bot.describe_attribute(raw_image, prompt, max_new_tokens=max_tokens)
+                if isinstance(reply, list):
+                    return [reply[0].strip()]
+                return [reply.strip()]
 
         except Exception as e:
-            print(f"SGLang server offers this error: {e}")
+            print(f"MLLMBot inference error: {e}")
             if num_attempts < 5:
                 time.sleep(5)
             continue
+    
+    return [None]
 
 
 def sglang_model1(prompt, img_paths=None, temperature=0.7, n=1, top_p=1, max_tokens=1024, model_name='sglang_qwen'):

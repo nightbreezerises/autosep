@@ -93,7 +93,9 @@ class ProTeGi(PromptOptimizer):
         elif self.opt['task_name'] == 'vegfru_allium':
             gradient_prompt = prompts.vegfru_allium
         else:
-            raise Exception(f"Unsupported task: {self.opt['task_name']}")
+            # 使用通用任务模板
+            gradient_prompt = prompts.Generic_Task
+            # raise Exception(f"Unsupported task: {self.opt['task_name']}")
 
         gradient_prompt += f"""
         My current prompt is:
@@ -142,7 +144,9 @@ class ProTeGi(PromptOptimizer):
         elif self.opt['task_name'] == 'vegfru_allium':
             transformation_prompt = prompts.vegfru_allium
         else:
-            raise Exception(f"Unsupported task: {self.opt['task_name']}")
+            # 使用通用任务模板
+            transformation_prompt = prompts.Generic_Task
+            # raise Exception(f"Unsupported task: {self.opt['task_name']}")
 
         transformation_prompt += f"""
         My current prompt is:

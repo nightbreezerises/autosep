@@ -6,7 +6,7 @@ export HF_HOME="/data/huggingface"
 export TRANSFORMERS_CACHE="/data/huggingface/transformers"
 export HF_DATASETS_CACHE="/data/huggingface/datasets"
 
-MODEL_REPO=Qwen/Qwen2-VL-72B-Instruct
+MODEL_REPO=Qwen/Qwen2.5-VL-72B-Instruct
 
 GPU=$1
 PORT=30000
@@ -24,7 +24,7 @@ CUDA_VISIBLE_DEVICES=$GPU python3 -m sglang.launch_server \
   --tp-size $tensor_parallel_size \
   --trust-remote-code \
   --mem-fraction-static $mem_fraction_static \
-  --chat-template qwen2-vl \
+  --chat-template qwen2.5-vl \
   --disable-radix-cache \
   --chunked-prefill-size -1
 

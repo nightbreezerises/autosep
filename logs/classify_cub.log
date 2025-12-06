@@ -1,0 +1,44 @@
+已激活 conda 环境: autosep
+============================================================
+分类评估
+配置文件: /home/hdl/project/autosep_test/scripts/config.yaml
+项目根目录: /home/hdl/project/autosep_test
+日志文件: /home/hdl/project/autosep_test/logs/classify_cub(1).log
+============================================================
+设置 CUDA_VISIBLE_DEVICES=3
+调试比例: test_ratio=10.0%
+有效测试样本数: n_test=3
+设置 AUTOSEP_MODEL=Qwen2.5-VL-7B-Instruct
+
+============================================================
+配置信息
+============================================================
+数据集简称: cub
+目录名: CUB_200_2011
+全称: CUB-200-2011
+类别数: 200
+类型: 鸟类细粒度分类
+路径: /home/hdl/project/autosep_test/datasets/CUB_200_2011 ✓
+
+运行参数:
+  数据目录: ./datasets
+  模型: Qwen2.5-VL-7B-Instruct
+  GPU: 3
+  实验编号: 1
+  评估模式: test
+  测试样本数: 3
+  Prompt 索引: 0
+============================================================
+
+开始分类评估: 数据集=cub, 模型=Qwen2.5-VL-7B-Instruct
+============================================================
+[DatasetLoader] 加载数据集: cub -> CUB_200_2011
+  - 路径: /data/oldhome/hdl/project/autosep_test/datasets/CUB_200_2011/CUB_200_2011
+  - 类别数: 200
+  - 训练集: 9416 样本
+  - 验证集: 0 样本
+  - 测试集: 2380 样本
+Traceback (most recent call last):
+  File "/data/oldhome/hdl/project/autosep_test/classification.py", line 105, in <module>
+    prompt = open(f'prompts/{args.task_name}_multi.md').read()
+FileNotFoundError: [Errno 2] No such file or directory: 'prompts/cub_multi.md'
