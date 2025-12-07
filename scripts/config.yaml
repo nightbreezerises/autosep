@@ -45,7 +45,7 @@ classification:
   mode: test
   n_test: 30
   prompt_idx: 0
-  parallel: true
+  parallel: false
   generate: true
   attributes: true
   temperature: 0.0
