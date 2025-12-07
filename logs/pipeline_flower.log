@@ -1,0 +1,64 @@
+已激活 conda 环境: autosep
+============================================================
+AutoSEP Pipeline
+配置文件: /home/hdl/data/project/autosep/scripts/config.yaml
+项目根目录: /home/hdl/data/project/autosep
+日志文件: /home/hdl/data/project/autosep/logs/pipeline_flower(1).log
+============================================================
+设置 CUDA_VISIBLE_DEVICES=1
+调试比例: train_ratio=10.0%, test_ratio=10.0%
+AutoSEP 有效样本数: n_train=3, n_val=3, n_test=3
+分类评估有效样本数: n_test=3
+设置 AUTOSEP_MODEL=Qwen2.5-VL-7B-Instruct
+
+============================================================
+配置信息
+============================================================
+数据集简称: flower
+目录名: flowers_102
+全称: Oxford Flowers
+类别数: 102
+类型: 花卉分类
+路径: /home/hdl/data/project/autosep/datasets/flowers_102 ✓
+
+运行参数:
+  数据目录: ./datasets
+  模型: Qwen2.5-VL-7B-Instruct
+  GPU: 1
+  实验编号: 1
+
+支持的模型:
+  - Qwen2.5-VL-7B-Instruct (默认)
+  - Qwen3-VL-8B-Instruct
+
+支持的数据集:
+  细粒度: cub, dog, flower, car, pet, aircraft, food, birdsnap
+  通用:   caltech101, caltech256, dtd, eurosat, ucf, sun397
+  ImageNet: imagenet_1k, imagenet_a, imagenet_r, imagenet_sketch, imagenet_v2
+============================================================
+
+开始处理: 数据集=flower, 模型=Qwen2.5-VL-7B-Instruct
+============================================================
+
+[Step 1/2] 运行 AutoSEP 优化...
+
+[DatasetLoader] 加载数据集: flower -> flowers_102
+  - 路径: /data/oldhome/gwj_sdc/hdl/project/autosep/datasets/flowers_102
+  - 划分文件: split_datasets_images.json
+  - 类别数: 102
+  - 训练集: 6507 样本
+  - 验证集: 0 样本
+  - 测试集: 1682 样本
+[load_prompts] 使用默认 prompt 模板 (数据集: flower)
+Generating (sequential):   0%|          | 0/306 [00:00<?, ?it/s]The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[api_utils] 加载模型: Qwen2.5-VL-7B-Instruct
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s][A
+Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.03it/s][A
+Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.13it/s][A
+Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.16it/s][A
+Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.17it/s][A
+Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.59it/s][ALoading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.35it/s]
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Generating (sequential):   0%|          | 1/306 [00:20<1:41:52, 20.04s/it]Generating (sequential):   1%|          | 2/306 [00:32<1:18:06, 15.41s/it]Generating (sequential):   1%|          | 3/306 [00:40<1:02:06, 12.30s/it]Generating (sequential):   1%|▏         | 4/306 [00:45<46:40,  9.27s/it]  Generating (sequential):   2%|▏         | 5/306 [00:54<46:34,  9.28s/it]Generating (sequential):   2%|▏         | 6/306 [01:03<45:22,  9.07s/it]Generating (sequential):   2%|▏         | 7/306 [01:13<47:32,  9.54s/it]Generating (sequential):   3%|▎         | 8/306 [01:21<44:55,  9.04s/it]Generating (sequential):   3%|▎         | 9/306 [01:31<44:55,  9.08s/it]Generating (sequential):   3%|▎         | 10/306 [01:38<41:51,  8.48s/it]Generating (sequential):   4%|▎         | 11/306 [01:47<42:50,  8.71s/it]Generating (sequential):   4%|▍         | 12/306 [01:55<42:10,  8.61s/it]Generating (sequential):   4%|▍         | 13/306 [02:05<43:15,  8.86s/it]Generating (sequential):   5%|▍         | 14/306 [02:15<44:40,  9.18s/it]Generating (sequential):   5%|▍         | 15/306 [02:24<45:22,  9.36s/it]Generating (sequential):   5%|▌         | 16/306 [02:36<48:12,  9.97s/it]Generating (sequential):   6%|▌         | 17/306 [02:45<46:40,  9.69s/it]Generating (sequential):   6%|▌         | 18/306 [02:55<46:32,  9.70s/it]Generating (sequential):   6%|▌         | 19/306 [03:03<44:56,  9.40s/it]Generating (sequential):   7%|▋         | 20/306 [03:08<38:06,  7.99s/it]Generating (sequential):   7%|▋         | 21/306 [03:16<37:40,  7.93s/it]Generating (sequential):   7%|▋         | 22/306 [03:25<39:06,  8.26s/it]Generating (sequential):   8%|▊         | 23/306 [03:33<39:30,  8.38s/it]Generating (sequential):   8%|▊         | 24/306 [03:42<39:44,  8.45s/it]Generating (sequential):   8%|▊         | 25/306 [03:51<39:39,  8.47s/it]

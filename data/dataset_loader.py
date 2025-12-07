@@ -54,20 +54,29 @@ class GenericDatasetLoader:
         double_nested_path = os.path.join(self.data_dir, self.dataset_dir, self.dataset_dir)
         single_nested_path = os.path.join(self.data_dir, self.dataset_dir)
         
-        # 优先检查单层路径，再检查双层路径
-        if os.path.exists(os.path.join(single_nested_path, 'images_split', 'split_dataset_images.json')):
-            self.dataset_path = single_nested_path
-        elif os.path.exists(os.path.join(double_nested_path, 'images_split', 'split_dataset_images.json')):
-            self.dataset_path = double_nested_path
-        else:
-            # 都不存在，报错
+        # 划分文件名：优先使用 split_datasets_images.json，兼容 split_dataset_images.json
+        split_file_names = ['split_datasets_images.json', 'split_dataset_images.json']
+        
+        # 查找划分文件
+        self.dataset_path = None
+        self.split_file = None
+        
+        for path in [single_nested_path, double_nested_path]:
+            for split_name in split_file_names:
+                candidate = os.path.join(path, 'images_split', split_name)
+                if os.path.exists(candidate):
+                    self.dataset_path = path
+                    self.split_file = candidate
+                    break
+            if self.split_file:
+                break
+        
+        if not self.split_file:
             raise FileNotFoundError(
                 f"划分文件不存在，已尝试:\n"
-                f"  - {os.path.join(single_nested_path, 'images_split', 'split_dataset_images.json')}\n"
-                f"  - {os.path.join(double_nested_path, 'images_split', 'split_dataset_images.json')}"
+                f"  - {os.path.join(single_nested_path, 'images_split', 'split_datasets_images.json')}\n"
+                f"  - {os.path.join(double_nested_path, 'images_split', 'split_datasets_images.json')}\n"
             )
-        
-        self.split_file = os.path.join(self.dataset_path, 'images_split', 'split_dataset_images.json')
         
         with open(self.split_file, 'r') as f:
             self.split_data = json.load(f)
@@ -77,6 +86,7 @@ class GenericDatasetLoader:
         
         print(f"[DatasetLoader] 加载数据集: {dataset_name} -> {self.dataset_dir}")
         print(f"  - 路径: {self.dataset_path}")
+        print(f"  - 划分文件: {os.path.basename(self.split_file)}")
         print(f"  - 类别数: {self.num_classes}")
         print(f"  - 训练集: {len(self.split_data.get('train', []))} 样本")
         print(f"  - 验证集: {len(self.split_data.get('val', []))} 样本")

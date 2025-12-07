@@ -1,0 +1,67 @@
+已激活 conda 环境: autosep
+============================================================
+AutoSEP Pipeline
+配置文件: /home/hdl/data/project/autosep/scripts/config.yaml
+项目根目录: /home/hdl/data/project/autosep
+日志文件: /home/hdl/data/project/autosep/logs/pipeline_cub(1).log
+============================================================
+设置 CUDA_VISIBLE_DEVICES=0
+调试比例: train_ratio=10.0%, test_ratio=10.0%
+AutoSEP 有效样本数: n_train=3, n_val=3, n_test=3
+分类评估有效样本数: n_test=3
+设置 AUTOSEP_MODEL=Qwen3-VL-8B-Instruct
+
+============================================================
+配置信息
+============================================================
+数据集简称: cub
+目录名: CUB_200_2011
+全称: CUB-200-2011
+类别数: 200
+类型: 鸟类细粒度分类
+路径: /home/hdl/data/project/autosep/datasets/CUB_200_2011 ✓
+
+运行参数:
+  数据目录: ./datasets
+  模型: Qwen3-VL-8B-Instruct
+  GPU: 0
+  实验编号: 1
+
+支持的模型:
+  - Qwen2.5-VL-7B-Instruct (默认)
+  - Qwen3-VL-8B-Instruct
+
+支持的数据集:
+  细粒度: cub, dog, flower, car, pet, aircraft, food, birdsnap
+  通用:   caltech101, caltech256, dtd, eurosat, ucf, sun397
+  ImageNet: imagenet_1k, imagenet_a, imagenet_r, imagenet_sketch, imagenet_v2
+============================================================
+
+开始处理: 数据集=cub, 模型=Qwen3-VL-8B-Instruct
+============================================================
+
+[Step 1/2] 运行 AutoSEP 优化...
+
+[DatasetLoader] 加载数据集: cub -> CUB_200_2011
+  - 路径: /data/oldhome/gwj_sdc/hdl/project/autosep/datasets/CUB_200_2011
+  - 划分文件: split_datasets_images.json
+  - 类别数: 200
+  - 训练集: 9416 样本
+  - 验证集: 0 样本
+  - 测试集: 2380 样本
+[load_prompts] 使用默认 prompt 模板 (数据集: cub)
+Generating (sequential):   0%|          | 0/600 [00:00<?, ?it/s]`torch_dtype` is deprecated! Use `dtype` instead!
+[api_utils] 加载模型: Qwen3-VL-8B-Instruct
+
+================= 模型初始化（MLLMBot - Qwen3-VL） =================
+📌 模型标识（model_tag）: Qwen3-VL-8B
+📌 模型名称（model_name）: Qwen3-VL-8B-Instruct
+📁 本地模型路径: ./models/Qwen/Qwen3-VL-8B-Instruct
+📁 图片最大尺寸: 1440 ，超出这个值将压缩
+🖥️ 设备: GPU - cuda:0
+🤖 使用 8bit 推理: 否
+🔍 使用数据类型: bfloat16（官方推荐）
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s][A
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:25<01:15, 25.27s/it][A
+Loading checkpoint shards:  50%|█████     | 2/4 [00:53<00:53, 26.99s/it][A

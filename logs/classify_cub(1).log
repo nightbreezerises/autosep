@@ -1,52 +1,0 @@
-已激活 conda 环境: autosep
-============================================================
-分类评估
-配置文件: /home/hdl/project/autosep_test/scripts/config.yaml
-项目根目录: /home/hdl/project/autosep_test
-日志文件: /home/hdl/project/autosep_test/logs/classify_cub(2).log
-============================================================
-设置 CUDA_VISIBLE_DEVICES=3
-调试比例: test_ratio=10.0%
-有效测试样本数: n_test=3
-设置 AUTOSEP_MODEL=Qwen2.5-VL-7B-Instruct
-
-============================================================
-配置信息
-============================================================
-数据集简称: cub
-目录名: CUB_200_2011
-全称: CUB-200-2011
-类别数: 200
-类型: 鸟类细粒度分类
-路径: /home/hdl/project/autosep_test/datasets/CUB_200_2011 ✓
-
-运行参数:
-  数据目录: ./datasets
-  模型: Qwen2.5-VL-7B-Instruct
-  GPU: 3
-  实验编号: 1
-  评估模式: test
-  测试样本数: 3
-  Prompt 索引: 0
-============================================================
-
-开始分类评估: 数据集=cub, 模型=Qwen2.5-VL-7B-Instruct
-============================================================
-[DatasetLoader] 加载数据集: cub -> CUB_200_2011
-  - 路径: /data/oldhome/hdl/project/autosep_test/datasets/CUB_200_2011/CUB_200_2011
-  - 类别数: 200
-  - 训练集: 9416 样本
-  - 验证集: 0 样本
-  - 测试集: 2380 样本
-Generating (sequential):   0%|          | 0/600 [00:00<?, ?it/s]The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
-`torch_dtype` is deprecated! Use `dtype` instead!
-[api_utils] 加载模型: Qwen2.5-VL-7B-Instruct
-
-Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s][A
-Loading checkpoint shards:  20%|██        | 1/5 [00:44<02:57, 44.35s/it][A
-Loading checkpoint shards:  40%|████      | 2/5 [01:28<02:11, 43.98s/it][A
-Loading checkpoint shards:  60%|██████    | 3/5 [02:06<01:23, 41.57s/it][A
-Loading checkpoint shards:  80%|████████  | 4/5 [02:47<00:41, 41.10s/it][A
-Loading checkpoint shards: 100%|██████████| 5/5 [02:58<00:00, 30.54s/it][ALoading checkpoint shards: 100%|██████████| 5/5 [02:58<00:00, 35.79s/it]
-The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Generating (sequential):   0%|          | 1/600 [03:37<36:13:12, 217.68s/it]Generating (sequential):   0%|          | 2/600 [03:51<16:12:13, 97.55s/it] Generating (sequential):   0%|          | 3/600 [04:08<10:04:17, 60.73s/it]Generating (sequential):   1%|          | 4/600 [04:21<6:56:29, 41.93s/it] Generating (sequential):   1%|          | 5/600 [04:34<5:12:53, 31.55s/it]Generating (sequential):   1%|          | 6/600 [04:51<4:24:35, 26.73s/it]Generating (sequential):   1%|          | 7/600 [05:07<3:48:00, 23.07s/it]Generating (sequential):   1%|▏         | 8/600 [05:21<3:20:48, 20.35s/it]Generating (sequential):   2%|▏         | 9/600 [05:34<2:58:01, 18.07s/it]Generating (sequential):   2%|▏         | 10/600 [05:47<2:41:13, 16.40s/it]Generating (sequential):   2%|▏         | 11/600 [05:55<2:15:43, 13.83s/it]Generating (sequential):   2%|▏         | 12/600 [06:09<2:15:34, 13.83s/it]Generating (sequential):   2%|▏         | 13/600 [06:21<2:11:19, 13.42s/it]Generating (sequential):   2%|▏         | 14/600 [06:35<2:11:37, 13.48s/it]Generating (sequential):   2%|▎         | 15/600 [06:51<2:19:26, 14.30s/it]Generating (sequential):   3%|▎         | 16/600 [07:05<2:18:22, 14.22s/it]Generating (sequential):   3%|▎         | 17/600 [07:23<2:27:30, 15.18s/it]Generating (sequential):   3%|▎         | 18/600 [07:38<2:27:47, 15.24s/it]Generating (sequential):   3%|▎         | 19/600 [07:51<2:20:18, 14.49s/it]Generating (sequential):   3%|▎         | 20/600 [08:03<2:14:27, 13.91s/it]Generating (sequential):   4%|▎         | 21/600 [08:16<2:11:09, 13.59s/it]Generating (sequential):   4%|▎         | 22/600 [08:28<2:05:43, 13.05s/it]Generating (sequential):   4%|▍         | 23/600 [08:39<1:59:48, 12.46s/it]Generating (sequential):   4%|▍         | 24/600 [08:53<2:03:42, 12.89s/it]Generating (sequential):   4%|▍         | 25/600 [09:06<2:04:15, 12.97s/it]Generating (sequential):   4%|▍         | 26/600 [09:18<2:02:44, 12.83s/it]Generating (sequential):   4%|▍         | 27/600 [09:30<1:57:51, 12.34s/it]Generating (sequential):   5%|▍         | 28/600 [09:41<1:54:53, 12.05s/it]Generating (sequential):   5%|▍         | 29/600 [09:52<1:52:44, 11.85s/it]Generating (sequential):   5%|▌         | 30/600 [10:02<1:46:36, 11.22s/it]Generating (sequential):   5%|▌         | 31/600 [10:15<1:50:56, 11.70s/it]Generating (sequential):   5%|▌         | 32/600 [10:35<2:15:17, 14.29s/it]Generating (sequential):   6%|▌         | 33/600 [10:48<2:11:08, 13.88s/it]Generating (sequential):   6%|▌         | 34/600 [10:59<2:01:12, 12.85s/it]Generating (sequential):   6%|▌         | 35/600 [11:12<2:01:08, 12.87s/it]Generating (sequential):   6%|▌         | 36/600 [11:23<1:56:34, 12.40s/it]Generating (sequential):   6%|▌         | 37/600 [11:35<1:56:20, 12.40s/it]Generating (sequential):   6%|▋         | 38/600 [11:49<1:59:54, 12.80s/it]Generating (sequential):   6%|▋         | 39/600 [12:03<2:04:14, 13.29s/it]Generating (sequential):   7%|▋         | 40/600 [12:17<2:05:04, 13.40s/it]Generating (sequential):   7%|▋         | 41/600 [12:39<2:28:20, 15.92s/it]Generating (sequential):   7%|▋         | 42/600 [12:57<2:34:06, 16.57s/it]Generating (sequential):   7%|▋         | 43/600 [13:16<2:39:26, 17.18s/it]Generating (sequential):   7%|▋         | 44/600 [13:33<2:39:12, 17.18s/it]Generating (sequential):   8%|▊         | 45/600 [13:53<2:47:30, 18.11s/it]Generating (sequential):   8%|▊         | 46/600 [14:04<2:28:04, 16.04s/it]Generating (sequential):   8%|▊         | 47/600 [14:26<2:43:31, 17.74s/it]Generating (sequential):   8%|▊         | 48/600 [14:41<2:35:41, 16.92s/it]Generating (sequential):   8%|▊         | 49/600 [14:55<2:27:44, 16.09s/it]Generating (sequential):   8%|▊         | 50/600 [15:12<2:28:42, 16.22s/it]Generating (sequential):   8%|▊         | 51/600 [15:34<2:45:33, 18.09s/it]Generating (sequential):   9%|▊         | 52/600 [16:03<3:14:06, 21.25s/it]Generating (sequential):   9%|▉         | 53/600 [16:32<3:35:15, 23.61s/it]Generating (sequential):   9%|▉         | 54/600 [16:52<3:25:03, 22.53s/it]

@@ -10,7 +10,7 @@ environment:
 paths:
   data_dir: ./datasets  # 数据集目录
   log_dir: ./logs       # 日志目录
-  gpu: 3
+  gpu: 0
 
 # 数据集名称
 # 细粒度分类: cub, dog, flower, car, pet, aircraft, food, birdsnap
@@ -20,7 +20,7 @@ dataset: cub
 
 # 模型名称
 # 支持，千问系列：Qwen3-VL-8B-Instruct，Qwen2.5-VL-7B-Instruct
-model: Qwen2.5-VL-7B-Instruct
+model: Qwen3-VL-8B-Instruct
 
 # AutoSEP 优化参数 (autosep/main.py)
 autosep:

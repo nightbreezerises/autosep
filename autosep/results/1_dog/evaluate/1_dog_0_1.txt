@@ -1,0 +1,2 @@
+2025-12-07 16:47:17.286545
+{"task_name": "dog", "model": "sglang_qwen", "out_num": "1", "data_dir": "./datasets", "result_folder": "autosep", "mode": "test", "seed": 42, "attributes": true, "generate": true, "temperature": 0.0, "max_threads": 8, "prompt_idx": 0, "exp": 1, "n_test": 3, "parallel": true, "train_ratio": 0.5, "out": "autosep/results/1_dog/evaluate/1_dog_0_1.txt"}
