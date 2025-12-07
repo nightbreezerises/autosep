@@ -1318,4 +1318,4 @@ To disable this warning, you can either:
 	- Avoid using `tokenizers` before the fork if possible
 	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
 
-compare scorer parallel:   0%|          | 0/720 [00:00<?, ?it/s][A
+compare scorer parallel:   0%|          | 0/720 [00:00<?, ?it/s][A/home/hdl/data/project/autosep/scripts/run_pipeline.sh: line 82: 251166 Killed                  python autosep/main.py --data_dir "$DATA_DIR" --task_name "$DATASET" --model "sglang_qwen" --gradient_model "sglang_qwen" --n_train "$N_TRAIN" --n_val "$N_VAL" --n_test "$N_TEST_AUTOSEP" --rounds "$ROUNDS" --beam_size "$BEAM_SIZE" --minibatch_size "$MINIBATCH_SIZE" --n_gradients "$N_GRADIENTS" --mc_samples_per_step "$MC_SAMPLES" --max_expansion_factor "$MAX_EXPANSION" --temperature "$AUTOSEP_TEMP" --max_threads "$AUTOSEP_THREADS" --out_num "$OUT_NUM" $TEST_EVAL_FLAG

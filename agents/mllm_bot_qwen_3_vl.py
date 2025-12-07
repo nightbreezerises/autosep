@@ -476,17 +476,32 @@ class MLLMBot:
         return reply
 
     def call_llm(self, prompts):
-        prompts_temp = self.processor(None, prompts, return_tensors="pt")
+        """
+        纯文本推理（无图像输入）
+        
+        注意：Qwen3VLForConditionalGeneration.language_model 是 Qwen3VLTextModel，
+        它没有 generate 方法。必须使用完整模型的 generate 方法。
+        """
         model_device = self._get_model_device()
-        input_ids = prompts_temp['input_ids'].to(model_device)
-        attention_mask = prompts_temp['attention_mask'].to(model_device)
-
-        prompts_embeds = self.model.language_model.get_input_embeddings()(input_ids)
-
+        
+        # 使用 tokenizer 处理纯文本输入
+        inputs = self.processor.tokenizer(
+            prompts, 
+            return_tensors="pt",
+            padding=True
+        ).to(model_device)
+        
         with torch.no_grad():
-            outputs = self.model.language_model.generate(
-                inputs_embeds=prompts_embeds,
-                attention_mask=attention_mask)
-
-        outputs = self.processor.decode(outputs[0], skip_special_tokens=True)
-        return outputs
+            # 使用完整模型的 generate 方法，而不是 language_model.generate
+            outputs = self.model.generate(
+                input_ids=inputs['input_ids'],
+                attention_mask=inputs['attention_mask'],
+                max_new_tokens=256,
+                do_sample=False,
+                pad_token_id=self.processor.tokenizer.eos_token_id
+            )
+        
+        # 解码输出，去除输入部分
+        generated_ids = outputs[0][inputs['input_ids'].shape[1]:]
+        result = self.processor.tokenizer.decode(generated_ids, skip_special_tokens=True)
+        return result
