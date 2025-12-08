@@ -3,10 +3,12 @@ import json
 import datetime
 import argparse
 from tqdm import tqdm
-import concurrent.futures
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
 import generator
 from get_utils import get_predictor, get_task_class
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 
 def process_example(ex, predictor, prompt, attr=None):
@@ -15,29 +17,25 @@ def process_example(ex, predictor, prompt, attr=None):
     return ex, pred
 
 
-def run_evaluate(predictor, prompt, exs, attributes_dict=None):
+def run_evaluate(predictor, prompt, exs, attributes_dict=None, model_name='gemini'):
     ids = []
     labels = []
     preds = []
     img_paths = []
-    with concurrent.futures.ProcessPoolExecutor(max_workers=8) as executor:
-        if attributes_dict == None:
-            futures = [executor.submit(process_example, ex, predictor, prompt, None) for ex in exs]
+    
+    # 纯顺序执行，避免多进程死锁
+    for ex in tqdm(exs, desc='running prediction on examples'):
+        if attributes_dict is None:
+            ex_result, pred = process_example(ex, predictor, prompt, None)
         else:
-            futures = [executor.submit(process_example, ex, predictor, prompt, attributes_dict[f'{ex["id"]}'])
-                       for ex in exs]
-        for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                              total=len(futures), desc='running prediction on examples'):
-            ex, pred = future.result()
-            if pred != None:
-                img_paths.append(ex['img_path'])
-                labels.append(ex['label'])
-                preds.append(pred)
-                ids.append(ex['id'])
-            else:
-                print(f"No prediction for {ex['id']}\t{ex['img_path']}")
-                with open(args.out, 'a') as outf:
-                    outf.write(f"No prediction for {ex['id']}\t{ex['img_path']}\n")
+            ex_result, pred = process_example(ex, predictor, prompt, attributes_dict[f'{ex["id"]}'])
+        if pred is not None:
+            img_paths.append(ex_result['img_path'])
+            labels.append(ex_result['label'])
+            preds.append(pred)
+            ids.append(ex_result['id'])
+        else:
+            print(f"No prediction for {ex_result['id']}\t{ex_result['img_path']}")
 
     correct_count = sum(1 for a, b in zip(labels, preds) if a == b)
     accuracy = correct_count / len(exs)
@@ -116,7 +114,7 @@ if __name__ == '__main__':
         attrs = None
 
     if args.parallel:
-        f1, acc, conf_matrix, texts, labels, preds, ids = run_evaluate(gpt4, prompt, exs, attrs)
+        f1, acc, conf_matrix, texts, labels, preds, ids = run_evaluate(gpt4, prompt, exs, attrs, args.model)
     else:
         preds, labels, ids, texts = [], [], [], []
         for i in tqdm(range(len(exs)), desc='Predicting (Single)...'):

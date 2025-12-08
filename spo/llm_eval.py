@@ -4,13 +4,14 @@ import os.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 import random
 from tqdm import tqdm
-import concurrent.futures
 import json
 import argparse
-import main
 import generator
 import api_utils as utils
 import prompt_optimization.prompts as prompts
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 
 def select_k_from_n_excluding_i(n, k, i):
@@ -92,15 +93,13 @@ def prompt_spo_compare(ex, pos_idx, neg_idx, attr_pos, attr_neg, task_name='CUB_
 def run_evaluate(exs, pos_idx, neg_idx, attr_pos, attr_neg, task_name, model_name='gemini'):
     examples, preds = [], []
 
-    with concurrent.futures.ProcessPoolExecutor(max_workers=8) as executor:
-        futures = [executor.submit(prompt_spo_compare, ex, pos_idx, neg_idx, attr_pos[f'{ex}'], attr_neg[f'{ex}'],
-                                   task_name, model_name) for ex in exs]
-
-        for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                              total=len(futures), desc='comparing two prompts (parallel)'):
-            answer, ex, pos_idx, neg_idx = future.result()
-            examples.append(ex)
-            preds.append(answer)
+    # 纯顺序执行，避免多进程死锁
+    for ex in tqdm(exs, desc='comparing two prompts'):
+        answer, ret_ex, ret_pos, ret_neg = prompt_spo_compare(
+            ex, pos_idx, neg_idx, attr_pos[f'{ex}'], attr_neg[f'{ex}'],
+            task_name, model_name)
+        examples.append(ret_ex)
+        preds.append(answer)
 
     return examples, preds
 
@@ -130,6 +129,7 @@ def get_args():
 
 
 if __name__ == '__main__':
+    from spo import main
     args = get_args()
     prompt_test_address = f"../{args.result_folder}/results/{args.exp}_{args.task_name}/{args.exp}_test_attr.json"
     prompt_address = f"../{args.result_folder}/results/{args.exp}_{args.task_name}/{args.exp}_{args.mode}_attr.json"

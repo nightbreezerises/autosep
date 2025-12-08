@@ -1,8 +1,5 @@
 import os
 import sys
-
-sys.path.append("./sglang/python")
-sys.path.append("./../sglang/python")
 import re
 import time
 import base64
@@ -315,38 +312,3 @@ def sglang_model(prompt, img_paths=None, temperature=0.7, n=1, top_p=1, max_toke
             continue
     
     return [None]
-
-
-def sglang_model1(prompt, img_paths=None, temperature=0.7, n=1, top_p=1, max_tokens=1024, model_name='sglang_qwen'):
-    if 'qwen' in model_name:
-        client = OpenAI(base_url=f"http://localhost:30000/v1", api_key="None")
-    else:
-        raise Exception(f'Unsupported task: {model_name}')
-
-    if img_paths != None:
-        imgs_url = []
-        for i in range(len(img_paths)):
-            imgs_url.append({"type": "image_url", "image_url": {"url": img_paths[i]}})
-        messages = [{"role": "user",
-                     "content": imgs_url + [{"type": "text", "text": prompt}], }]
-    else:
-        messages = [{"role": "user", "content": prompt}]
-
-    num_attempts = 0
-    while num_attempts < 5:
-        num_attempts += 1
-        try:
-            response = client.chat.completions.create(model="Qwen/Qwen2-VL-72B-Instruct",
-                                                      messages=messages,
-                                                      temperature=temperature,
-                                                      top_p=top_p,
-                                                      max_tokens=max_tokens,
-                                                      )
-            num_attempts = 5
-            return [response.choices[0].message.content]
-
-        except Exception as e:
-            print(f"SGLang server offers this error: {e}")
-            if num_attempts < 5:
-                time.sleep(5)
-            continue

@@ -1,11 +1,13 @@
 """
 通用数据集加载器
 支持从 split_dataset_images.json 加载任意数据集
+
+注意: 已移除 concurrent.futures，改为纯顺序执行
+原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 """
 import os
 import json
 import random
-import concurrent.futures
 from tqdm import tqdm
 from sklearn.metrics import f1_score
 
@@ -253,8 +255,7 @@ class GenericDatasetLoader:
                     predictor, prompt, test_exs, pred_prompts,
                     attribute_cache, model_name
                 )
-            except (concurrent.futures.process.BrokenProcessPool, 
-                    requests.exceptions.SSLError):
+            except requests.exceptions.SSLError:
                 pass
     
     def compare_evaluate(self, prompt, exs, attribute_cache, model_name='sglang_qwen'):
@@ -272,32 +273,17 @@ class GenericDatasetLoader:
         
         true_exs, false_exs, preds, true_attrs, false_attrs = [], [], [], [], []
         
-        # 本地模型使用顺序执行（GPU 模型无法多进程）
-        if 'sglang' in model_name:
-            for true_ex in tqdm(exs, desc='running comparison on examples (single)'):
-                for false_ex in false_exs_dict[f'{true_ex}'][:3]:
-                    answer, true_ex, false_ex, prompt = predict_with_compare(
-                        true_ex, false_ex, prompt,
-                        attribute_cache[f'{prompt}'], model_name
-                    )
-                    true_exs.append(true_ex)
-                    false_exs.append(false_ex)
-                    preds.append(answer)
-                    true_attrs.append(attribute_cache[f'{prompt}'][f'{true_ex}'])
-                    false_attrs.append(attribute_cache[f'{prompt}'][f'{false_ex}'])
-        else:
-            # 其他模型使用并行执行
-            with concurrent.futures.ProcessPoolExecutor(max_workers=self.max_threads) as executor:
-                futures = [executor.submit(predict_with_compare, true_ex, false_ex, prompt,
-                                           attribute_cache[f'{prompt}'], model_name)
-                           for true_ex in exs for false_ex in false_exs_dict[f'{true_ex}']]
-                for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                                      total=len(futures), desc='running comparison on examples (parallel)'):
-                    answer, true_ex, false_ex, prompt = future.result()
-                    true_exs.append(true_ex)
-                    false_exs.append(false_ex)
-                    preds.append(answer)
-                    true_attrs.append(attribute_cache[f'{prompt}'][f'{true_ex}'])
-                    false_attrs.append(attribute_cache[f'{prompt}'][f'{false_ex}'])
+        # 纯顺序执行，避免多进程死锁
+        for true_ex in tqdm(exs, desc='running comparison on examples'):
+            for false_ex in false_exs_dict[f'{true_ex}']:
+                answer, ret_true_ex, ret_false_ex, ret_prompt = predict_with_compare(
+                    true_ex, false_ex, prompt,
+                    attribute_cache[f'{prompt}'], model_name
+                )
+                true_exs.append(ret_true_ex)
+                false_exs.append(ret_false_ex)
+                preds.append(answer)
+                true_attrs.append(attribute_cache[f'{prompt}'][f'{ret_true_ex}'])
+                false_attrs.append(attribute_cache[f'{prompt}'][f'{ret_false_ex}'])
         
         return true_exs, false_exs, preds, true_attrs, false_attrs

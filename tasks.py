@@ -3,13 +3,15 @@ import random
 import pickle
 import requests
 import json
-import concurrent.futures
 from abc import ABC, abstractmethod
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 import generator
 import api_utils as utils
 from autosep.llm_text_compare import predict_with_compare, select_k_from_n_excluding_i
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 random.seed(42)
 
@@ -39,37 +41,21 @@ class ClassificationTask(DataProcessor):
 
     def run_evaluate(self, predictor, prompt, exs, pred_prompts=None, attribute_cache=None, model_name='gemini'):
         labels, preds, texts, attributes = [], [], [], []
-        if model_name == 'gemini' or model_name == 'gpt4o' or 'sglang' in model_name:
-            with concurrent.futures.ProcessPoolExecutor(max_workers=self.max_threads) as executor:
-                if attribute_cache != None:
-                    futures = [executor.submit(process_example, ex, predictor, pred_prompts[f'{prompt}'],
-                                               attribute_cache[f'{prompt}'][f'{ex}']) for ex in exs]
+        # 纯顺序执行，避免多进程死锁
+        for ex in tqdm(exs, desc='running prediction on examples'):
+            if attribute_cache is not None:
+                ex_result, pred, attr = process_example(ex, predictor, pred_prompts[f'{prompt}'],
+                                                        attribute_cache[f'{prompt}'][f'{ex}'])
+            else:
+                ex_result, pred, attr = process_example(ex, predictor, prompt, None)
+            if pred is not None:
+                if attribute_cache is not None:
+                    texts.append(ex_result['img_path'])
+                    attributes.append(attr)
                 else:
-                    futures = [executor.submit(process_example, ex, predictor, prompt, None)
-                               for ex in exs]
-                for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                                      total=len(futures), desc='running prediction on examples (parallel)'):
-                    ex, pred, attr = future.result()
-                    if pred != None:
-                        if attribute_cache != None:
-                            texts.append(ex['img_path'])
-                            attributes.append(attr)
-                        else:
-                            texts.append(ex['text'])
-                        labels.append(ex['label'])
-                        preds.append(pred)
-        else:
-            for ex in tqdm(exs, desc='running prediction on examples (single)'):
-                ex, pred, attr = process_example(ex, predictor, pred_prompts[f'{prompt}'],
-                                                 attribute_cache[f'{prompt}'][f'{ex}'])
-                if pred != None:
-                    if attribute_cache != None:
-                        texts.append(ex['img_path'])
-                        attributes.append(attr)
-                    else:
-                        texts.append(ex['text'])
-                    labels.append(ex['label'])
-                    preds.append(pred)
+                    texts.append(ex_result.get('text', ex_result.get('img_path', '')))
+                labels.append(ex_result['label'])
+                preds.append(pred)
 
         f1 = f1_score(labels, preds, average='micro')
         return f1, texts, labels, preds, attributes
@@ -80,7 +66,7 @@ class ClassificationTask(DataProcessor):
                 f1, texts, labels, preds, attributes = self.run_evaluate(predictor, prompt, test_exs, pred_prompts,
                                                                          attribute_cache, model_name)
                 break
-            except (concurrent.futures.process.BrokenProcessPool, requests.exceptions.SSLError):
+            except requests.exceptions.SSLError:
                 pass
         return f1, texts, labels, preds, attributes
 
@@ -105,29 +91,16 @@ class ClassificationTask(DataProcessor):
             false_exs_dict[f'{exs[i]}'] = [exs[idx] for idx in false_idx]
 
         true_exs, false_exs, preds, true_attrs, false_attrs = [], [], [], [], []
-        if model_name == 'gemini' or model_name == 'gpt4o' or 'sglang' in model_name:
-            with concurrent.futures.ProcessPoolExecutor(max_workers=self.max_threads) as executor:
-                futures = [executor.submit(predict_with_compare, true_ex, false_ex, prompt,
-                                           attribute_cache[f'{prompt}'], model_name)
-                           for true_ex in exs for false_ex in false_exs_dict[f'{true_ex}']]
-                for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                                      total=len(futures), desc='running comparison on examples (parallel)'):
-                    answer, true_ex, false_ex, prompt = future.result()
-                    true_exs.append(true_ex)
-                    false_exs.append(false_ex)
-                    preds.append(answer)
-                    true_attrs.append(attribute_cache[f'{prompt}'][f'{true_ex}'])
-                    false_attrs.append(attribute_cache[f'{prompt}'][f'{false_ex}'])
-        else:
-            for true_ex in tqdm(exs, desc='running comparison on examples (single)'):
-                for false_ex in false_exs_dict[f'{true_ex}'][:3]:
-                    answer, true_ex, false_ex, prompt = predict_with_compare(true_ex, false_ex, prompt,
-                                                                             attribute_cache[f'{prompt}'], model_name)
-                    true_exs.append(true_ex)
-                    false_exs.append(false_ex)
-                    preds.append(answer)
-                    true_attrs.append(attribute_cache[f'{prompt}'][f'{true_ex}'])
-                    false_attrs.append(attribute_cache[f'{prompt}'][f'{false_ex}'])
+        # 纯顺序执行，避免多进程死锁
+        for true_ex in tqdm(exs, desc='running comparison on examples'):
+            for false_ex in false_exs_dict[f'{true_ex}']:
+                answer, ret_true_ex, ret_false_ex, ret_prompt = predict_with_compare(
+                    true_ex, false_ex, prompt, attribute_cache[f'{prompt}'], model_name)
+                true_exs.append(ret_true_ex)
+                false_exs.append(ret_false_ex)
+                preds.append(answer)
+                true_attrs.append(attribute_cache[f'{prompt}'][f'{ret_true_ex}'])
+                false_attrs.append(attribute_cache[f'{prompt}'][f'{ret_false_ex}'])
 
         return true_exs, false_exs, preds, true_attrs, false_attrs
 

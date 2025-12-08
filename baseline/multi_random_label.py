@@ -7,10 +7,12 @@ import random
 import datetime
 import argparse
 from tqdm import tqdm
-import concurrent.futures
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import api_utils as utils
 from get_utils import get_predictor, get_task_class
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 
 def get_class_options(args):
@@ -75,20 +77,16 @@ def run_evaluate(predictor, prompt, exs, few_shot_paths):
     labels = []
     preds = []
     img_paths = []
-    with concurrent.futures.ProcessPoolExecutor(max_workers=8) as executor:
-        futures = [executor.submit(process_example, ex, predictor, prompt, few_shot_paths) for ex in exs]
-        for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                              total=len(futures), desc='running prediction on examples'):
-            ex, pred = future.result()
-            if pred != None:
-                img_paths.append(ex['img_path'])
-                labels.append(ex['label'])
-                preds.append(pred)
-                ids.append(ex['id'])
-            else:
-                print(f"No prediction for {ex['id']}\t{ex['img_path']}")
-                with open(args.out, 'a') as outf:
-                    outf.write(f"No prediction for {ex['id']}\t{ex['img_path']}\n")
+    # 纯顺序执行，避免多进程死锁
+    for ex in tqdm(exs, desc='running prediction on examples'):
+        ex_result, pred = process_example(ex, predictor, prompt, few_shot_paths)
+        if pred is not None:
+            img_paths.append(ex_result['img_path'])
+            labels.append(ex_result['label'])
+            preds.append(pred)
+            ids.append(ex_result['id'])
+        else:
+            print(f"No prediction for {ex_result['id']}\t{ex_result['img_path']}")
 
     correct_count = sum(1 for a, b in zip(labels, preds) if a == b)
     accuracy = correct_count / len(exs)

@@ -1,7 +1,7 @@
 import sys
 import os
 
-# 确保项目根目录在 sys.path 中（用于子进程）
+# 确保项目根目录在 sys.path 中
 _project_root = os.path.dirname(os.path.abspath(__file__))
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
@@ -9,8 +9,10 @@ if _project_root not in sys.path:
 from abc import ABC, abstractmethod
 from liquid import Template
 from tqdm import tqdm
-import concurrent.futures
 import api_utils as utils
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 
 class GPT4Generator(ABC):
@@ -51,33 +53,13 @@ class AttrGredictor(GPT4Generator):
         return response
 
 
-def generate_on_example(inputs):
-    generator, prompt, ex = inputs
-    pred = generator.generate(prompt, ex)
-    return prompt, pred, ex
-
-
 def parallel_generate(generator, prompt, examples, attr_cache, max_threads):
     """
-    生成属性描述
+    生成属性描述（纯顺序执行）
     
-    注意：对于本地 GPU 模型（如 sglang_qwen），使用顺序执行而非多进程，
-    因为 ProcessPoolExecutor 会导致每个子进程重新加载模型，浪费显存和时间。
+    注意：已移除所有多进程逻辑，避免 CUDA 死锁和僵尸进程问题。
     """
-    model_name = generator.opt.get('model', '')
-    
-    # 对于本地 GPU 模型，使用顺序执行（模型已在主进程加载，无法跨进程共享）
-    if 'sglang' in model_name or 'local' in model_name:
-        for ex in tqdm(examples, desc='Generating (sequential)'):
-            pred = generator.generate(prompt, ex)
-            attr_cache[f'{prompt}'][f'{ex}'] = pred
-        return attr_cache
-    
-    # 对于 API 模型（gemini, gpt4o），可以使用多进程并行
-    inputs = [(generator, prompt, ex) for ex in examples]
-    with concurrent.futures.ProcessPoolExecutor(max_workers=max_threads) as executor:
-        futures = [executor.submit(generate_on_example, ex) for ex in inputs]
-    for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)), total=len(futures), desc='Generating (parallel)'):
-        prompt, pred, ex = future.result()
+    for ex in tqdm(examples, desc='Generating'):
+        pred = generator.generate(prompt, ex)
         attr_cache[f'{prompt}'][f'{ex}'] = pred
     return attr_cache

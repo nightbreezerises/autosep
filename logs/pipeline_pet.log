@@ -1,0 +1,980 @@
+已激活 conda 环境: autosep_qwen
+============================================================
+AutoSEP Pipeline
+配置文件: /home/hdl/project/autosep/scripts/config.yaml
+项目根目录: /home/hdl/project/autosep
+日志文件: /home/hdl/project/autosep/logs/pipeline_pet(1).log
+============================================================
+设置 CUDA_VISIBLE_DEVICES=4
+调试比例: train_ratio=10.0%, test_ratio=10.0%
+AutoSEP 有效样本数: n_train=3, n_val=3, n_test=3
+分类评估有效样本数: n_test=3
+设置 AUTOSEP_MODEL=Qwen2.5-VL-7B-Instruct
+
+============================================================
+配置信息
+============================================================
+数据集简称: pet
+目录名: pet_37
+全称: Oxford Pets
+类别数: 37
+类型: 宠物分类
+路径: /home/hdl/project/autosep/datasets/pet_37 ✓
+
+运行参数:
+  数据目录: ./datasets
+  模型: Qwen2.5-VL-7B-Instruct
+  GPU: 4
+  实验编号: 1
+
+支持的模型:
+  - Qwen2.5-VL-7B-Instruct (默认)
+  - Qwen3-VL-8B-Instruct
+
+支持的数据集:
+  细粒度: cub, dog, flower, car, pet, aircraft, food, birdsnap
+  通用:   caltech101, caltech256, dtd, eurosat, ucf, sun397
+  ImageNet: imagenet_1k, imagenet_a, imagenet_r, imagenet_sketch, imagenet_v2
+============================================================
+
+开始处理: 数据集=pet, 模型=Qwen2.5-VL-7B-Instruct
+============================================================
+
+[Step 1/2] 运行 AutoSEP 优化...
+
+[DatasetLoader] 加载数据集: pet -> pet_37
+  - 路径: /home/hdl/project/autosep/datasets/pet_37
+  - 划分文件: split_datasets_images.json
+  - 类别数: 35
+  - 训练集: 3680 样本
+  - 验证集: 0 样本
+  - 测试集: 3669 样本
+[load_prompts] 使用默认 prompt 模板 (数据集: pet)
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s]/home/hdl/miniconda3/envs/autosep_qwen/lib/python3.9/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/home/hdl/miniconda3/envs/autosep_qwen/lib/python3.9/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[api_utils] 加载模型: Qwen2.5-VL-7B-Instruct
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s][A
+Loading checkpoint shards:  20%|██        | 1/5 [01:10<04:43, 70.98s/it][A
+Loading checkpoint shards:  40%|████      | 2/5 [02:44<04:12, 84.18s/it][A
+Loading checkpoint shards:  60%|██████    | 3/5 [09:18<07:31, 225.72s/it][A
+Loading checkpoint shards:  80%|████████  | 4/5 [11:35<03:10, 190.77s/it][A
+Loading checkpoint shards: 100%|██████████| 5/5 [11:37<00:00, 122.70s/it][ALoading checkpoint shards: 100%|██████████| 5/5 [11:37<00:00, 139.55s/it]
+The following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Generating (sequential):   1%|          | 1/105 [12:10<21:05:40, 730.19s/it]Generating (sequential):   2%|▏         | 2/105 [12:15<8:41:18, 303.67s/it] Generating (sequential):   3%|▎         | 3/105 [12:21<4:45:21, 167.86s/it]Generating (sequential):   4%|▍         | 4/105 [12:27<2:54:58, 103.95s/it]Generating (sequential):   5%|▍         | 5/105 [12:35<1:55:18, 69.19s/it] Generating (sequential):   6%|▌         | 6/105 [12:42<1:19:23, 48.12s/it]Generating (sequential):   7%|▋         | 7/105 [12:47<55:24, 33.93s/it]  Generating (sequential):   8%|▊         | 8/105 [12:52<40:00, 24.75s/it]Generating (sequential):   9%|▊         | 9/105 [12:57<30:09, 18.85s/it]Generating (sequential):  10%|▉         | 10/105 [13:01<22:32, 14.24s/it]Generating (sequential):  10%|█         | 11/105 [13:07<18:15, 11.66s/it]Generating (sequential):  11%|█▏        | 12/105 [13:11<14:32,  9.38s/it]Generating (sequential):  12%|█▏        | 13/105 [13:17<12:28,  8.13s/it]Generating (sequential):  13%|█▎        | 14/105 [13:23<11:39,  7.68s/it]Generating (sequential):  14%|█▍        | 15/105 [13:28<10:13,  6.82s/it]Generating (sequential):  15%|█▌        | 16/105 [13:35<10:00,  6.75s/it]Generating (sequential):  16%|█▌        | 17/105 [13:41<09:31,  6.50s/it]Generating (sequential):  17%|█▋        | 18/105 [13:47<09:28,  6.53s/it]Generating (sequential):  18%|█▊        | 19/105 [13:53<09:03,  6.32s/it]Generating (sequential):  19%|█▉        | 20/105 [13:59<08:55,  6.30s/it]Generating (sequential):  20%|██        | 21/105 [14:04<08:20,  5.96s/it]Generating (sequential):  21%|██        | 22/105 [14:11<08:41,  6.29s/it]Generating (sequential):  22%|██▏       | 23/105 [14:16<07:52,  5.76s/it]Generating (sequential):  23%|██▎       | 24/105 [14:20<07:10,  5.31s/it]Generating (sequential):  24%|██▍       | 25/105 [14:25<06:51,  5.15s/it]Generating (sequential):  25%|██▍       | 26/105 [14:30<06:48,  5.17s/it]Generating (sequential):  26%|██▌       | 27/105 [14:36<07:03,  5.43s/it]Generating (sequential):  27%|██▋       | 28/105 [14:42<07:04,  5.51s/it]Generating (sequential):  28%|██▊       | 29/105 [14:47<06:53,  5.44s/it]Generating (sequential):  29%|██▊       | 30/105 [14:53<06:58,  5.59s/it]Generating (sequential):  30%|██▉       | 31/105 [14:59<06:48,  5.53s/it]Generating (sequential):  30%|███       | 32/105 [15:03<06:29,  5.33s/it]Generating (sequential):  31%|███▏      | 33/105 [15:10<06:58,  5.82s/it]Generating (sequential):  32%|███▏      | 34/105 [15:16<06:37,  5.60s/it]Generating (sequential):  33%|███▎      | 35/105 [15:21<06:24,  5.49s/it]Generating (sequential):  34%|███▍      | 36/105 [15:26<06:11,  5.39s/it]Generating (sequential):  35%|███▌      | 37/105 [15:33<06:49,  6.03s/it]Generating (sequential):  36%|███▌      | 38/105 [15:40<06:51,  6.14s/it]Generating (sequential):  37%|███▋      | 39/105 [15:45<06:21,  5.78s/it]Generating (sequential):  38%|███▊      | 40/105 [15:52<06:52,  6.35s/it]Generating (sequential):  39%|███▉      | 41/105 [15:57<06:17,  5.90s/it]Generating (sequential):  40%|████      | 42/105 [16:04<06:36,  6.29s/it]Generating (sequential):  41%|████      | 43/105 [16:10<06:19,  6.13s/it]Generating (sequential):  42%|████▏     | 44/105 [16:16<06:14,  6.14s/it]Generating (sequential):  43%|████▎     | 45/105 [16:22<06:00,  6.01s/it]Generating (sequential):  44%|████▍     | 46/105 [16:26<05:21,  5.46s/it]Generating (sequential):  45%|████▍     | 47/105 [16:31<05:00,  5.18s/it]Generating (sequential):  46%|████▌     | 48/105 [16:37<05:07,  5.40s/it]Generating (sequential):  47%|████▋     | 49/105 [16:42<04:56,  5.30s/it]Generating (sequential):  48%|████▊     | 50/105 [16:47<04:50,  5.28s/it]Generating (sequential):  49%|████▊     | 51/105 [16:52<04:32,  5.05s/it]Generating (sequential):  50%|████▉     | 52/105 [16:57<04:38,  5.25s/it]Generating (sequential):  50%|█████     | 53/105 [17:03<04:35,  5.30s/it]Generating (sequential):  51%|█████▏    | 54/105 [17:09<04:43,  5.56s/it]Generating (sequential):  52%|█████▏    | 55/105 [17:15<04:50,  5.81s/it]Generating (sequential):  53%|█████▎    | 56/105 [17:21<04:44,  5.81s/it]Generating (sequential):  54%|█████▍    | 57/105 [17:28<04:51,  6.08s/it]Generating (sequential):  55%|█████▌    | 58/105 [17:33<04:32,  5.79s/it]Generating (sequential):  56%|█████▌    | 59/105 [17:38<04:11,  5.46s/it]Generating (sequential):  57%|█████▋    | 60/105 [17:45<04:34,  6.10s/it]Generating (sequential):  58%|█████▊    | 61/105 [17:51<04:23,  5.99s/it]Generating (sequential):  59%|█████▉    | 62/105 [17:56<03:59,  5.57s/it]Generating (sequential):  60%|██████    | 63/105 [18:00<03:44,  5.35s/it]Generating (sequential):  61%|██████    | 64/105 [18:06<03:42,  5.44s/it]Generating (sequential):  62%|██████▏   | 65/105 [18:11<03:27,  5.19s/it]Generating (sequential):  63%|██████▎   | 66/105 [18:16<03:27,  5.32s/it]Generating (sequential):  64%|██████▍   | 67/105 [18:23<03:34,  5.64s/it]Generating (sequential):  65%|██████▍   | 68/105 [18:29<03:37,  5.88s/it]Generating (sequential):  66%|██████▌   | 69/105 [18:35<03:34,  5.96s/it]Generating (sequential):  67%|██████▋   | 70/105 [18:42<03:40,  6.29s/it]Generating (sequential):  68%|██████▊   | 71/105 [18:49<03:41,  6.50s/it]Generating (sequential):  69%|██████▊   | 72/105 [18:56<03:35,  6.52s/it]Generating (sequential):  70%|██████▉   | 73/105 [19:00<03:08,  5.90s/it]Generating (sequential):  70%|███████   | 74/105 [19:07<03:09,  6.12s/it]Generating (sequential):  71%|███████▏  | 75/105 [19:12<02:58,  5.96s/it]Generating (sequential):  72%|███████▏  | 76/105 [19:18<02:52,  5.96s/it]Generating (sequential):  73%|███████▎  | 77/105 [19:23<02:31,  5.42s/it]Generating (sequential):  74%|███████▍  | 78/105 [19:27<02:18,  5.13s/it]Generating (sequential):  75%|███████▌  | 79/105 [19:32<02:14,  5.18s/it]Generating (sequential):  76%|███████▌  | 80/105 [19:38<02:10,  5.22s/it]Generating (sequential):  77%|███████▋  | 81/105 [19:43<02:08,  5.36s/it]Generating (sequential):  78%|███████▊  | 82/105 [19:49<02:01,  5.30s/it]Generating (sequential):  79%|███████▉  | 83/105 [19:55<02:04,  5.64s/it]Generating (sequential):  80%|████████  | 84/105 [20:00<01:52,  5.36s/it]Generating (sequential):  81%|████████  | 85/105 [20:06<01:50,  5.52s/it]Generating (sequential):  82%|████████▏ | 86/105 [20:11<01:43,  5.44s/it]Generating (sequential):  83%|████████▎ | 87/105 [20:16<01:38,  5.45s/it]Generating (sequential):  84%|████████▍ | 88/105 [20:21<01:31,  5.35s/it]Generating (sequential):  85%|████████▍ | 89/105 [20:26<01:21,  5.12s/it]Generating (sequential):  86%|████████▌ | 90/105 [20:31<01:17,  5.15s/it]Generating (sequential):  87%|████████▋ | 91/105 [20:34<01:03,  4.51s/it]Generating (sequential):  88%|████████▊ | 92/105 [20:40<01:04,  4.99s/it]Generating (sequential):  89%|████████▊ | 93/105 [20:47<01:04,  5.39s/it]Generating (sequential):  90%|████████▉ | 94/105 [20:52<00:58,  5.33s/it]Generating (sequential):  90%|█████████ | 95/105 [20:58<00:54,  5.50s/it]Generating (sequential):  91%|█████████▏| 96/105 [21:02<00:46,  5.20s/it]Generating (sequential):  92%|█████████▏| 97/105 [21:07<00:40,  5.01s/it]Generating (sequential):  93%|█████████▎| 98/105 [21:13<00:37,  5.33s/it]Generating (sequential):  94%|█████████▍| 99/105 [21:19<00:33,  5.52s/it]Generating (sequential):  95%|█████████▌| 100/105 [21:25<00:28,  5.65s/it]Generating (sequential):  96%|█████████▌| 101/105 [21:30<00:21,  5.39s/it]Generating (sequential):  97%|█████████▋| 102/105 [21:34<00:15,  5.23s/it]Generating (sequential):  98%|█████████▊| 103/105 [21:41<00:11,  5.56s/it]Generating (sequential):  99%|█████████▉| 104/105 [21:48<00:06,  6.15s/it]Generating (sequential): 100%|██████████| 105/105 [21:53<00:00,  5.65s/it]Generating (sequential): 100%|██████████| 105/105 [21:53<00:00, 12.51s/it]
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s]Generating (sequential):   1%|          | 1/105 [00:06<11:12,  6.47s/it]Generating (sequential):   2%|▏         | 2/105 [00:11<09:49,  5.72s/it]Generating (sequential):   3%|▎         | 3/105 [00:16<09:12,  5.42s/it]Generating (sequential):   4%|▍         | 4/105 [00:23<10:17,  6.11s/it]Generating (sequential):   5%|▍         | 5/105 [00:30<10:18,  6.19s/it]Generating (sequential):   6%|▌         | 6/105 [00:36<10:08,  6.15s/it]Generating (sequential):   7%|▋         | 7/105 [00:41<09:37,  5.89s/it]Generating (sequential):   8%|▊         | 8/105 [00:46<08:59,  5.57s/it]Generating (sequential):   9%|▊         | 9/105 [00:52<09:19,  5.82s/it]Generating (sequential):  10%|▉         | 10/105 [00:57<08:43,  5.51s/it]Generating (sequential):  10%|█         | 11/105 [01:02<08:16,  5.28s/it]Generating (sequential):  11%|█▏        | 12/105 [01:07<08:09,  5.26s/it]Generating (sequential):  12%|█▏        | 13/105 [01:11<07:34,  4.94s/it]Generating (sequential):  13%|█▎        | 14/105 [01:16<07:14,  4.78s/it]Generating (sequential):  14%|█▍        | 15/105 [01:22<07:52,  5.25s/it]Generating (sequential):  15%|█▌        | 16/105 [01:28<07:57,  5.37s/it]Generating (sequential):  16%|█▌        | 17/105 [01:34<08:12,  5.60s/it]Generating (sequential):  17%|█▋        | 18/105 [01:39<08:00,  5.52s/it]Generating (sequential):  18%|█▊        | 19/105 [01:45<07:50,  5.48s/it]Generating (sequential):  19%|█▉        | 20/105 [01:52<08:25,  5.95s/it]Generating (sequential):  20%|██        | 21/105 [01:58<08:38,  6.17s/it]Generating (sequential):  21%|██        | 22/105 [02:04<08:10,  5.90s/it]Generating (sequential):  22%|██▏       | 23/105 [02:08<07:32,  5.52s/it]Generating (sequential):  23%|██▎       | 24/105 [02:14<07:27,  5.52s/it]Generating (sequential):  24%|██▍       | 25/105 [02:20<07:38,  5.73s/it]Generating (sequential):  25%|██▍       | 26/105 [02:25<07:23,  5.62s/it]Generating (sequential):  26%|██▌       | 27/105 [02:32<07:29,  5.77s/it]Generating (sequential):  27%|██▋       | 28/105 [02:36<06:47,  5.30s/it]Generating (sequential):  28%|██▊       | 29/105 [02:42<06:59,  5.52s/it]Generating (sequential):  29%|██▊       | 30/105 [02:47<06:53,  5.51s/it]Generating (sequential):  30%|██▉       | 31/105 [02:52<06:33,  5.32s/it]Generating (sequential):  30%|███       | 32/105 [02:58<06:30,  5.35s/it]Generating (sequential):  31%|███▏      | 33/105 [03:03<06:35,  5.50s/it]Generating (sequential):  32%|███▏      | 34/105 [03:08<06:12,  5.25s/it]Generating (sequential):  33%|███▎      | 35/105 [03:13<06:00,  5.15s/it]Generating (sequential):  34%|███▍      | 36/105 [03:18<05:54,  5.14s/it]Generating (sequential):  35%|███▌      | 37/105 [03:23<05:53,  5.20s/it]Generating (sequential):  36%|███▌      | 38/105 [03:28<05:30,  4.93s/it]Generating (sequential):  37%|███▋      | 39/105 [03:33<05:29,  5.00s/it]Generating (sequential):  38%|███▊      | 40/105 [03:39<05:46,  5.33s/it]Generating (sequential):  39%|███▉      | 41/105 [03:44<05:25,  5.09s/it]Generating (sequential):  40%|████      | 42/105 [03:50<05:46,  5.50s/it]Generating (sequential):  41%|████      | 43/105 [03:56<05:53,  5.71s/it]Generating (sequential):  42%|████▏     | 44/105 [04:01<05:25,  5.34s/it]Generating (sequential):  43%|████▎     | 45/105 [04:06<05:20,  5.34s/it]Generating (sequential):  44%|████▍     | 46/105 [04:11<05:16,  5.37s/it]Generating (sequential):  45%|████▍     | 47/105 [04:16<04:54,  5.08s/it]Generating (sequential):  46%|████▌     | 48/105 [04:22<05:02,  5.30s/it]Generating (sequential):  47%|████▋     | 49/105 [04:28<05:16,  5.65s/it]Generating (sequential):  48%|████▊     | 50/105 [04:33<04:51,  5.30s/it]Generating (sequential):  49%|████▊     | 51/105 [04:39<05:02,  5.61s/it]Generating (sequential):  50%|████▉     | 52/105 [04:43<04:40,  5.30s/it]Generating (sequential):  50%|█████     | 53/105 [04:48<04:19,  4.98s/it]Generating (sequential):  51%|█████▏    | 54/105 [04:54<04:39,  5.49s/it]Generating (sequential):  52%|█████▏    | 55/105 [05:01<04:52,  5.84s/it]Generating (sequential):  53%|█████▎    | 56/105 [05:05<04:23,  5.37s/it]Generating (sequential):  54%|█████▍    | 57/105 [05:10<04:03,  5.08s/it]Generating (sequential):  55%|█████▌    | 58/105 [05:14<03:49,  4.88s/it]Generating (sequential):  56%|█████▌    | 59/105 [05:20<04:00,  5.22s/it]Generating (sequential):  57%|█████▋    | 60/105 [05:24<03:39,  4.87s/it]Generating (sequential):  58%|█████▊    | 61/105 [05:28<03:25,  4.67s/it]Generating (sequential):  59%|█████▉    | 62/105 [05:34<03:29,  4.87s/it]Generating (sequential):  60%|██████    | 63/105 [05:39<03:33,  5.08s/it]Generating (sequential):  61%|██████    | 64/105 [05:45<03:33,  5.21s/it]Generating (sequential):  62%|██████▏   | 65/105 [05:50<03:26,  5.15s/it]Generating (sequential):  63%|██████▎   | 66/105 [05:55<03:17,  5.07s/it]Generating (sequential):  64%|██████▍   | 67/105 [06:02<03:39,  5.78s/it]Generating (sequential):  65%|██████▍   | 68/105 [06:09<03:46,  6.13s/it]Generating (sequential):  66%|██████▌   | 69/105 [06:14<03:25,  5.71s/it]Generating (sequential):  67%|██████▋   | 70/105 [06:20<03:22,  5.79s/it]Generating (sequential):  68%|██████▊   | 71/105 [06:26<03:18,  5.83s/it]Generating (sequential):  69%|██████▊   | 72/105 [06:31<03:05,  5.61s/it]Generating (sequential):  70%|██████▉   | 73/105 [06:37<02:59,  5.62s/it]Generating (sequential):  70%|███████   | 74/105 [06:42<02:56,  5.69s/it]Generating (sequential):  71%|███████▏  | 75/105 [06:48<02:49,  5.65s/it]Generating (sequential):  72%|███████▏  | 76/105 [06:54<02:48,  5.80s/it]Generating (sequential):  73%|███████▎  | 77/105 [07:00<02:41,  5.78s/it]Generating (sequential):  74%|███████▍  | 78/105 [07:04<02:24,  5.35s/it]Generating (sequential):  75%|███████▌  | 79/105 [07:08<02:10,  5.01s/it]Generating (sequential):  76%|███████▌  | 80/105 [07:13<02:04,  4.98s/it]Generating (sequential):  77%|███████▋  | 81/105 [07:18<01:58,  4.92s/it]Generating (sequential):  78%|███████▊  | 82/105 [07:22<01:44,  4.56s/it]Generating (sequential):  79%|███████▉  | 83/105 [07:27<01:44,  4.73s/it]Generating (sequential):  80%|████████  | 84/105 [07:31<01:36,  4.59s/it]Generating (sequential):  81%|████████  | 85/105 [07:37<01:39,  4.95s/it]Generating (sequential):  82%|████████▏ | 86/105 [07:43<01:42,  5.39s/it]Generating (sequential):  83%|████████▎ | 87/105 [07:49<01:37,  5.44s/it]Generating (sequential):  84%|████████▍ | 88/105 [07:55<01:34,  5.56s/it]Generating (sequential):  85%|████████▍ | 89/105 [08:01<01:30,  5.67s/it]Generating (sequential):  86%|████████▌ | 90/105 [08:06<01:22,  5.52s/it]Generating (sequential):  87%|████████▋ | 91/105 [08:10<01:12,  5.19s/it]Generating (sequential):  88%|████████▊ | 92/105 [08:16<01:08,  5.27s/it]Generating (sequential):  89%|████████▊ | 93/105 [08:20<00:59,  4.96s/it]Generating (sequential):  90%|████████▉ | 94/105 [08:26<00:58,  5.28s/it]Generating (sequential):  90%|█████████ | 95/105 [08:31<00:52,  5.29s/it]Generating (sequential):  91%|█████████▏| 96/105 [08:38<00:51,  5.69s/it]Generating (sequential):  92%|█████████▏| 97/105 [08:43<00:44,  5.62s/it]Generating (sequential):  93%|█████████▎| 98/105 [08:50<00:41,  5.95s/it]Generating (sequential):  94%|█████████▍| 99/105 [08:56<00:35,  5.92s/it]Generating (sequential):  95%|█████████▌| 100/105 [09:00<00:27,  5.41s/it]Generating (sequential):  96%|█████████▌| 101/105 [09:05<00:21,  5.32s/it]Generating (sequential):  97%|█████████▋| 102/105 [09:10<00:15,  5.24s/it]Generating (sequential):  98%|█████████▊| 103/105 [09:15<00:10,  5.19s/it]Generating (sequential):  99%|█████████▉| 104/105 [09:22<00:05,  5.54s/it]Generating (sequential): 100%|██████████| 105/105 [09:27<00:00,  5.42s/it]Generating (sequential): 100%|██████████| 105/105 [09:27<00:00,  5.40s/it]
+  0%|          | 0/7 [00:00<?, ?it/s]STARTING ROUND  0
+
+评估中:   0%|          | 0/105 [00:00<?, ?it/s][A
+评估中:   1%|          | 1/105 [00:00<00:26,  3.98it/s][A
+评估中:   2%|▏         | 2/105 [00:00<00:32,  3.19it/s][A
+评估中:   3%|▎         | 3/105 [00:00<00:34,  3.00it/s][A
+评估中:   4%|▍         | 4/105 [00:01<00:33,  3.00it/s][A
+评估中:   5%|▍         | 5/105 [00:01<00:30,  3.27it/s][A
+评估中:   6%|▌         | 6/105 [00:02<00:40,  2.47it/s][A
+评估中:   7%|▋         | 7/105 [00:02<00:36,  2.65it/s][A
+评估中:   8%|▊         | 8/105 [00:02<00:34,  2.82it/s][A
+评估中:   9%|▊         | 9/105 [00:03<00:30,  3.11it/s][A
+评估中:  10%|▉         | 10/105 [00:03<00:28,  3.37it/s][A
+评估中:  10%|█         | 11/105 [00:03<00:36,  2.57it/s][A
+评估中:  11%|█▏        | 12/105 [00:04<00:30,  3.01it/s][A
+评估中:  12%|█▏        | 13/105 [00:04<00:31,  2.94it/s][A
+评估中:  13%|█▎        | 14/105 [00:04<00:30,  2.98it/s][A
+评估中:  14%|█▍        | 15/105 [00:04<00:26,  3.37it/s][A
+评估中:  15%|█▌        | 16/105 [00:05<00:36,  2.47it/s][A
+评估中:  16%|█▌        | 17/105 [00:05<00:32,  2.71it/s][A
+评估中:  17%|█▋        | 18/105 [00:06<00:28,  3.00it/s][A
+评估中:  18%|█▊        | 19/105 [00:06<00:26,  3.23it/s][A
+评估中:  19%|█▉        | 20/105 [00:07<00:34,  2.49it/s][A
+评估中:  20%|██        | 21/105 [00:07<00:38,  2.16it/s][A
+评估中:  21%|██        | 22/105 [00:07<00:33,  2.46it/s][A
+评估中:  22%|██▏       | 23/105 [00:08<00:38,  2.14it/s][A
+评估中:  23%|██▎       | 24/105 [00:08<00:32,  2.51it/s][A
+评估中:  24%|██▍       | 25/105 [00:09<00:29,  2.72it/s][A
+评估中:  25%|██▍       | 26/105 [00:09<00:36,  2.19it/s][A
+评估中:  26%|██▌       | 27/105 [00:10<00:40,  1.92it/s][A
+评估中:  27%|██▋       | 28/105 [00:11<00:43,  1.76it/s][A
+评估中:  28%|██▊       | 29/105 [00:11<00:45,  1.66it/s][A
+评估中:  29%|██▊       | 30/105 [00:12<00:46,  1.60it/s][A
+评估中:  30%|██▉       | 31/105 [00:12<00:41,  1.79it/s][A
+评估中:  30%|███       | 32/105 [00:13<00:38,  1.92it/s][A
+评估中:  31%|███▏      | 33/105 [00:13<00:36,  1.99it/s][A
+评估中:  32%|███▏      | 34/105 [00:14<00:34,  2.08it/s][A
+评估中:  33%|███▎      | 35/105 [00:14<00:29,  2.36it/s][A
+评估中:  34%|███▍      | 36/105 [00:14<00:28,  2.45it/s][A
+评估中:  35%|███▌      | 37/105 [00:15<00:24,  2.75it/s][A
+评估中:  36%|███▌      | 38/105 [00:15<00:30,  2.19it/s][A
+评估中:  37%|███▋      | 39/105 [00:15<00:25,  2.57it/s][A
+评估中:  38%|███▊      | 40/105 [00:16<00:25,  2.51it/s][A
+评估中:  39%|███▉      | 41/105 [00:16<00:23,  2.73it/s][A
+评估中:  40%|████      | 42/105 [00:17<00:23,  2.65it/s][A
+评估中:  41%|████      | 43/105 [00:17<00:22,  2.80it/s][A
+评估中:  42%|████▏     | 44/105 [00:17<00:21,  2.90it/s][A
+评估中:  43%|████▎     | 45/105 [00:18<00:19,  3.04it/s][A
+评估中:  44%|████▍     | 46/105 [00:18<00:19,  3.10it/s][A
+评估中:  45%|████▍     | 47/105 [00:18<00:18,  3.13it/s][A
+评估中:  46%|████▌     | 48/105 [00:18<00:16,  3.37it/s][A
+评估中:  47%|████▋     | 49/105 [00:19<00:15,  3.56it/s][A
+评估中:  48%|████▊     | 50/105 [00:19<00:20,  2.63it/s][A
+评估中:  49%|████▊     | 51/105 [00:19<00:17,  3.06it/s][A
+评估中:  50%|████▉     | 52/105 [00:20<00:17,  3.06it/s][A
+评估中:  50%|█████     | 53/105 [00:20<00:15,  3.31it/s][A
+评估中:  51%|█████▏    | 54/105 [00:21<00:20,  2.47it/s][A
+评估中:  52%|█████▏    | 55/105 [00:21<00:24,  2.06it/s][A
+评估中:  53%|█████▎    | 56/105 [00:22<00:21,  2.31it/s][A
+评估中:  54%|█████▍    | 57/105 [00:22<00:23,  2.00it/s][A
+评估中:  55%|█████▌    | 58/105 [00:23<00:25,  1.83it/s][A
+评估中:  56%|█████▌    | 59/105 [00:23<00:22,  2.08it/s][A
+评估中:  57%|█████▋    | 60/105 [00:24<00:18,  2.40it/s][A
+评估中:  58%|█████▊    | 61/105 [00:24<00:21,  2.04it/s][A
+评估中:  59%|█████▉    | 62/105 [00:25<00:23,  1.86it/s][A
+评估中:  60%|██████    | 63/105 [00:26<00:24,  1.74it/s][A
+评估中:  61%|██████    | 64/105 [00:26<00:19,  2.08it/s][A
+评估中:  62%|██████▏   | 65/105 [00:26<00:17,  2.34it/s][A
+评估中:  63%|██████▎   | 66/105 [00:27<00:19,  2.02it/s][A
+评估中:  64%|██████▍   | 67/105 [00:27<00:16,  2.32it/s][A
+评估中:  65%|██████▍   | 68/105 [00:27<00:14,  2.62it/s][A
+评估中:  66%|██████▌   | 69/105 [00:28<00:17,  2.09it/s][A
+评估中:  67%|██████▋   | 70/105 [00:29<00:18,  1.88it/s][A
+评估中:  68%|██████▊   | 71/105 [00:29<00:19,  1.76it/s][A
+评估中:  69%|██████▊   | 72/105 [00:30<00:19,  1.68it/s][A
+评估中:  70%|██████▉   | 73/105 [00:31<00:19,  1.67it/s][A
+评估中:  70%|███████   | 74/105 [00:31<00:18,  1.67it/s][A
+评估中:  71%|███████▏  | 75/105 [00:31<00:15,  1.99it/s][A
+评估中:  72%|███████▏  | 76/105 [00:32<00:13,  2.19it/s][A
+评估中:  73%|███████▎  | 77/105 [00:32<00:14,  1.88it/s][A
+评估中:  74%|███████▍  | 78/105 [00:33<00:12,  2.24it/s][A
+评估中:  75%|███████▌  | 79/105 [00:33<00:09,  2.64it/s][A
+评估中:  76%|███████▌  | 80/105 [00:33<00:08,  2.97it/s][A
+评估中:  77%|███████▋  | 81/105 [00:33<00:07,  3.32it/s][A
+评估中:  78%|███████▊  | 82/105 [00:34<00:06,  3.56it/s][A
+评估中:  79%|███████▉  | 83/105 [00:34<00:05,  3.71it/s][A
+评估中:  80%|████████  | 84/105 [00:34<00:05,  3.72it/s][A
+评估中:  81%|████████  | 85/105 [00:35<00:07,  2.58it/s][A
+评估中:  82%|████████▏ | 86/105 [00:35<00:06,  2.73it/s][A
+评估中:  83%|████████▎ | 87/105 [00:35<00:05,  3.03it/s][A
+评估中:  84%|████████▍ | 88/105 [00:36<00:05,  3.31it/s][A
+评估中:  85%|████████▍ | 89/105 [00:36<00:06,  2.45it/s][A
+评估中:  86%|████████▌ | 90/105 [00:37<00:07,  2.06it/s][A[MultiClassPredictor] 无法解析响应: The answer is: Domestic Tabby Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: The cat in the image is an Abyssinian breed.
+[MultiClassPredictor] 无法解析响应: The answer is: The cat in the image is an Abyssinian breed.
+[MultiClassPredictor] 无法解析响应: The answer is: The cat in the image is a Bengal cat.
+[MultiClassPredictor] 无法解析响应: The answer is: Domestic Tabby Cat.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is a "Domestic Cat." The kitten exhibits typical character
+[MultiClassPredictor] 无法解析响应: The answer is: Cat (Birman Breed)
+[MultiClassPredictor] 无法解析响应: The answer is: Siamese Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: Domestic Cat.
+[MultiClassPredictor] 无法解析响应: The image depicts a domestic cat, specifically a black cat with a white patch on its chest. Based on
+[MultiClassPredictor] 无法解析响应: The answer is: Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: Cat (British Shorthair).
+[MultiClassPredictor] 无法解析响应: The answer is: Cat (British Shorthair).
+[MultiClassPredictor] 无法解析响应: The answer is: Domestic Cat.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is a "Domestic Cat." The cat exhibits typical characterist
+[MultiClassPredictor] 无法解析响应: The answer is: Domestic Tabby Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: African Serval.
+[MultiClassPredictor] 无法解析响应: The answer is: Domestic Cat.
+[MultiClassPredictor] 无法解析响应: The cat in the image matches the typical characteristics of a breed with a long-haired coat, such as
+[MultiClassPredictor] 无法解析响应: The cat in the image displays a mix of brown, black, and white fur with a noticeable white patch aro
+[MultiClassPredictor] 无法解析响应: The answer is: Cat.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is a domestic cat. The compact and rounded body structure,
+[MultiClassPredictor] 无法解析响应: The answer is: Domestic Tabby Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: Siamese Cat.
+[MultiClassPredictor] 无法解析响应: The cat in the image matches the description of a long-haired breed with distinctive features such a
+[MultiClassPredictor] 无法解析响应: The cat in the image matches the typical characteristics of a Russian Blue cat. The gray fur, compac
+[MultiClassPredictor] 无法解析响应: The best match for the described features is a domestic shorthair cat, specifically one that resembl
+[MultiClassPredictor] 无法解析响应: The best match for the described features is a domestic shorthair cat. The cat's compact and muscula
+[MultiClassPredictor] 无法解析响应: The answer is: The object in the image is a Siamese cat.
+[MultiClassPredictor] 无法解析响应: The answer is: The object in the image is a Siamese cat.
+[MultiClassPredictor] 无法解析响应: The answer is: The object in the image is a Siamese cat.
+[MultiClassPredictor] 无法解析响应: The answer is: The object in the image is a Sphynx cat.
+[MultiClassPredictor] 无法解析响应: The answer is: Hairless Sphynx Cat.
+[MultiClassPredictor] 无法解析响应: The answer is: The object in the image is a Sphynx cat.
+[MultiClassPredictor] 无法解析响应: The answer is: American Bulldog.
+[MultiClassPredictor] 无法解析响应: The answer is: Puppy.
+[MultiClassPredictor] 无法解析响应: The answer is: Basset Hound.
+[MultiClassPredictor] 无法解析响应: The answer is: The object in the image is a Basset Hound.
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Beagle).
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Beagle).
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Beagle).
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Boxer Breed)
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Boxer Breed).
+[MultiClassPredictor] 无法解析响应: The answer is: Boxer.
+[MultiClassPredictor] 无法解析响应: The answer is: Chihuahua.
+[MultiClassPredictor] 无法解析响应: The answer is: The image depicts a small, light brown Chihuahua with a smooth coat, large upright ea
+[MultiClassPredictor] 无法解析响应: The answer is: Dog.
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Cocker Spaniel).
+[MultiClassPredictor] 无法解析响应: The answer is: Irish Setter.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Tibetan Terrier." The dog's compact and s
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Dog." Specifically, the dog in the image 
+[MultiClassPredictor] 无法解析响应: The answer is: German Shorthaired Pointer.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Dog." Specifically, the dog in the image 
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Dog." Specifically, the dog appears to be
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Golden Retriever).
+[MultiClassPredictor] 无法解析响应: The answer is: Dog.
+[MultiClassPredictor] 无法解析响应: The answer is: The dog in the image is most likely a Poodle or a Poodle mix. The distinctive feature
+[MultiClassPredictor] 无法解析响应: The image depicts a small dog with a distinctive appearance characterized by a predominantly white b
+[MultiClassPredictor] 无法解析响应: The dog in the image appears to be a breed that fits the description of a Havanese. Havanese dogs ar
+[MultiClassPredictor] 无法解析响应: The answer is: Japanese Chin.
+[MultiClassPredictor] 无法解析响应: The answer is: Japanese Chin.
+[MultiClassPredictor] 无法解析响应: The answer is: Keeshond.
+[MultiClassPredictor] 无法解析响应: The answer is: Keeshond.
+[MultiClassPredictor] 无法解析响应: The answer is: The puppy in the image most closely resembles a Keeshond. This breed is known for its
+[MultiClassPredictor] 无法解析响应: The best match for the described features is a "Domestic Dog." The image shows a dog with a medium t
+[MultiClassPredictor] 无法解析响应: The dog in the image appears to be a breed with a thick, dense coat, which suggests it might be adap
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Manchester Terrier." The distinctive attr
+[MultiClassPredictor] 无法解析响应: The best match for the described features is "Chihuahua." The distinctive attributes such as the com
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Rottweiler).
+[MultiClassPredictor] 无法解析响应: The answer is: Dog, specifically a Tibetan Mastiff.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Dog". The image clearly depicts a large b
+[MultiClassPredictor] 无法解析响应: The answer is: Dog.
+[MultiClassPredictor] 无法解析响应: The answer is: Pomeranian.
+[MultiClassPredictor] 无法解析响应: The answer is: Pomeranian.
+[MultiClassPredictor] 无法解析响应: The answer is: Pomeranian.
+[MultiClassPredictor] 无法解析响应: The answer is: Dog (Pug).
+[MultiClassPredictor] 无法解析响应: The answer is: A pug dog.
+[MultiClassPredictor] 无法解析响应: The answer is: A pug dog.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Dog." Specifically, the puppy in the imag
+[MultiClassPredictor] 无法解析响应: The answer is: Saint Bernard puppy.
+[MultiClassPredictor] 无法解析响应: The answer is: Saint Bernard.
+[MultiClassPredictor] 无法解析响应: The answer is: Dog.
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Canine" or more specifically, "Dog." The 
+
+评估中:  87%|████████▋ | 91/105 [00:37<00:05,  2.36it/s][A
+评估中:  88%|████████▊ | 92/105 [00:37<00:04,  2.71it/s][A
+评估中:  89%|████████▊ | 93/105 [00:38<00:05,  2.22it/s][A
+评估中:  90%|████████▉ | 94/105 [00:39<00:05,  1.96it/s][A
+评估中:  90%|█████████ | 95/105 [00:39<00:05,  1.79it/s][A
+评估中:  91%|█████████▏| 96/105 [00:40<00:04,  1.97it/s][A
+评估中:  92%|█████████▏| 97/105 [00:40<00:04,  1.78it/s][A
+评估中:  93%|█████████▎| 98/105 [00:41<00:03,  2.06it/s][A
+评估中:  94%|█████████▍| 99/105 [00:41<00:03,  1.86it/s][A
+评估中:  95%|█████████▌| 100/105 [00:42<00:02,  2.24it/s][A
+评估中:  96%|█████████▌| 101/105 [00:42<00:02,  1.97it/s][A
+评估中:  97%|█████████▋| 102/105 [00:43<00:01,  1.82it/s][A
+评估中:  98%|█████████▊| 103/105 [00:44<00:01,  1.72it/s][A
+评估中:  99%|█████████▉| 104/105 [00:44<00:00,  1.65it/s][A
+评估中: 100%|██████████| 105/105 [00:45<00:00,  2.02it/s][A评估中: 100%|██████████| 105/105 [00:45<00:00,  2.33it/s]
+ 14%|█▍        | 1/7 [00:45<04:30, 45.05s/it][MultiClassPredictor] 无法解析响应: The answer is: Scottish Terrier.
+[MultiClassPredictor] 无法解析响应: The answer is: Terrier.
+[MultiClassPredictor] 无法解析响应: The image depicts a dog with a reddish-brown coat and a distinctive cream-colored patch on the top o
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category "Dog." Specifically, the dog in the image 
+[MultiClassPredictor] 无法解析响应: The answer is: The dog in the image is a Shiba Inu.
+[MultiClassPredictor] 无法解析响应: The answer is: Staffordshire Bull Terrier.
+[MultiClassPredictor] 无法解析响应: The answer is: Dog.
+[MultiClassPredictor] 无法解析响应: The dog in the image appears to be a Soft Coated Wheaten Terrier (also known as a "Wheaten"). This b
+[MultiClassPredictor] 无法解析响应: The best match for the described features is "Dog." The image clearly depicts a small dog with chara
+[MultiClassPredictor] 无法解析响应: The best match for the described features is the category of "Dog." Specifically, the dog in the ima
+[MultiClassPredictor] 无法解析响应: The answer is: Dog.
+已保存属性缓存到: autosep/results/1_pet/
+STARTING ROUND  1
+
+expanding 1 prompts:   0%|          | 0/1 [00:00<?, ?it/s][A
+
+running comparison on examples (single):   0%|          | 0/50 [00:00<?, ?it/s][A[A
+
+running comparison on examples (single):   2%|▏         | 1/50 [00:00<00:27,  1.80it/s][A[A
+
+running comparison on examples (single):   4%|▍         | 2/50 [00:01<00:24,  1.98it/s][A[A
+
+running comparison on examples (single):   6%|▌         | 3/50 [00:01<00:22,  2.05it/s][A[A
+
+running comparison on examples (single):   8%|▊         | 4/50 [00:02<00:22,  2.01it/s][A[A
+
+running comparison on examples (single):  10%|█         | 5/50 [00:02<00:21,  2.09it/s][A[A
+
+running comparison on examples (single):  12%|█▏        | 6/50 [00:02<00:21,  2.01it/s][A[A
+
+running comparison on examples (single):  14%|█▍        | 7/50 [00:03<00:21,  2.00it/s][A[A
+
+running comparison on examples (single):  16%|█▌        | 8/50 [00:04<00:21,  1.96it/s][A[A
+
+running comparison on examples (single):  18%|█▊        | 9/50 [00:04<00:20,  1.98it/s][A[A
+
+running comparison on examples (single):  20%|██        | 10/50 [00:04<00:19,  2.01it/s][A[A
+
+running comparison on examples (single):  22%|██▏       | 11/50 [00:05<00:19,  2.05it/s][A[A
+
+running comparison on examples (single):  24%|██▍       | 12/50 [00:05<00:18,  2.07it/s][A[A
+
+running comparison on examples (single):  26%|██▌       | 13/50 [00:06<00:16,  2.23it/s][A[A
+
+running comparison on examples (single):  28%|██▊       | 14/50 [00:06<00:16,  2.25it/s][A[A
+
+running comparison on examples (single):  30%|███       | 15/50 [00:07<00:15,  2.24it/s][A[A
+
+running comparison on examples (single):  32%|███▏      | 16/50 [00:07<00:15,  2.14it/s][A[A
+
+running comparison on examples (single):  34%|███▍      | 17/50 [00:08<00:15,  2.12it/s][A[A
+
+running comparison on examples (single):  36%|███▌      | 18/50 [00:08<00:14,  2.15it/s][A[A
+
+running comparison on examples (single):  38%|███▊      | 19/50 [00:09<00:14,  2.10it/s][A[A
+
+running comparison on examples (single):  40%|████      | 20/50 [00:09<00:14,  2.09it/s][A[A
+
+running comparison on examples (single):  42%|████▏     | 21/50 [00:10<00:13,  2.08it/s][A[A
+
+running comparison on examples (single):  44%|████▍     | 22/50 [00:10<00:13,  2.09it/s][A[A
+
+running comparison on examples (single):  46%|████▌     | 23/50 [00:11<00:12,  2.12it/s][A[A
+
+running comparison on examples (single):  48%|████▊     | 24/50 [00:11<00:12,  2.09it/s][A[A
+
+running comparison on examples (single):  50%|█████     | 25/50 [00:12<00:12,  2.07it/s][A[A
+
+running comparison on examples (single):  52%|█████▏    | 26/50 [00:12<00:11,  2.08it/s][A[A
+
+running comparison on examples (single):  54%|█████▍    | 27/50 [00:12<00:10,  2.10it/s][A[A
+
+running comparison on examples (single):  56%|█████▌    | 28/50 [00:13<00:10,  2.10it/s][A[A
+
+running comparison on examples (single):  58%|█████▊    | 29/50 [00:13<00:09,  2.11it/s][A[A
+
+running comparison on examples (single):  60%|██████    | 30/50 [00:14<00:09,  2.06it/s][A[A
+
+running comparison on examples (single):  62%|██████▏   | 31/50 [00:14<00:09,  2.06it/s][A[A
+
+running comparison on examples (single):  64%|██████▍   | 32/50 [00:15<00:08,  2.06it/s][A[A
+
+running comparison on examples (single):  66%|██████▌   | 33/50 [00:15<00:08,  2.08it/s][A[A
+
+running comparison on examples (single):  68%|██████▊   | 34/50 [00:16<00:07,  2.07it/s][A[A
+
+running comparison on examples (single):  70%|███████   | 35/50 [00:16<00:07,  2.05it/s][A[A
+
+running comparison on examples (single):  72%|███████▏  | 36/50 [00:17<00:06,  2.05it/s][A[A
+
+running comparison on examples (single):  74%|███████▍  | 37/50 [00:17<00:06,  1.97it/s][A[A
+
+running comparison on examples (single):  76%|███████▌  | 38/50 [00:18<00:06,  1.98it/s][A[A
+
+running comparison on examples (single):  78%|███████▊  | 39/50 [00:18<00:05,  1.98it/s][A[A
+
+running comparison on examples (single):  80%|████████  | 40/50 [00:19<00:04,  2.04it/s][A[A
+
+running comparison on examples (single):  82%|████████▏ | 41/50 [00:19<00:04,  2.04it/s][A[A
+
+running comparison on examples (single):  84%|████████▍ | 42/50 [00:20<00:03,  2.04it/s][A[A
+
+running comparison on examples (single):  86%|████████▌ | 43/50 [00:20<00:03,  2.05it/s][A[A
+
+running comparison on examples (single):  88%|████████▊ | 44/50 [00:21<00:02,  2.06it/s][A[A
+
+running comparison on examples (single):  90%|█████████ | 45/50 [00:21<00:02,  2.07it/s][A[A
+
+running comparison on examples (single):  92%|█████████▏| 46/50 [00:22<00:01,  2.04it/s][A[A
+
+running comparison on examples (single):  94%|█████████▍| 47/50 [00:22<00:01,  2.07it/s][A[A
+
+running comparison on examples (single):  96%|█████████▌| 48/50 [00:23<00:00,  2.06it/s][A[A
+
+running comparison on examples (single):  98%|█████████▊| 49/50 [00:23<00:00,  2.07it/s][A[A
+
+running comparison on examples (single): 100%|██████████| 50/50 [00:24<00:00,  1.99it/s][A[Arunning comparison on examples (single): 100%|██████████| 50/50 [00:24<00:00,  2.06it/s]
+
+
+gradients..:   0%|          | 0/4 [00:00<?, ?it/s][A[A
+
+gradients..:  25%|██▌       | 1/4 [00:07<00:22,  7.54s/it][A[A
+
+gradients..:  50%|█████     | 2/4 [00:21<00:22, 11.14s/it][A[A
+
+gradients..:  75%|███████▌  | 3/4 [00:35<00:12, 12.40s/it][A[A
+
+gradients..: 100%|██████████| 4/4 [00:45<00:00, 11.42s/it][A[Agradients..: 100%|██████████| 4/4 [00:45<00:00, 11.26s/it]
+
+
+applying gradients:   0%|          | 0/4 [00:00<?, ?it/s][A[A
+
+applying gradients:  25%|██▌       | 1/4 [00:06<00:18,  6.28s/it][A[A
+
+applying gradients:  50%|█████     | 2/4 [00:09<00:08,  4.42s/it][A[A
+
+applying gradients:  75%|███████▌  | 3/4 [00:13<00:04,  4.45s/it][A[A
+
+applying gradients: 100%|██████████| 4/4 [00:18<00:00,  4.48s/it][A[Aapplying gradients: 100%|██████████| 4/4 [00:18<00:00,  4.60s/it]
+
+
+mc samples:   0%|          | 0/4 [00:00<?, ?it/s][A[A
+
+mc samples:  25%|██▌       | 1/4 [00:04<00:12,  4.25s/it][A[A
+
+mc samples:  50%|█████     | 2/4 [00:08<00:08,  4.25s/it][A[A
+
+mc samples:  75%|███████▌  | 3/4 [00:12<00:04,  4.25s/it][A[A
+
+mc samples: 100%|██████████| 4/4 [00:15<00:00,  3.47s/it][A[Amc samples: 100%|██████████| 4/4 [00:15<00:00,  3.76s/it]
+
+expanding 1 prompts: 100%|██████████| 1/1 [01:42<00:00, 102.73s/it][Aexpanding 1 prompts: 100%|██████████| 1/1 [01:42<00:00, 102.73s/it]
+
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s][A
+Generating (sequential):   1%|          | 1/105 [00:05<09:53,  5.70s/it][A
+Generating (sequential):   2%|▏         | 2/105 [00:12<10:52,  6.34s/it][A
+Generating (sequential):   3%|▎         | 3/105 [00:20<12:25,  7.31s/it][A
+Generating (sequential):   4%|▍         | 4/105 [00:28<12:30,  7.43s/it][A
+Generating (sequential):   5%|▍         | 5/105 [00:36<12:42,  7.63s/it][A
+Generating (sequential):   6%|▌         | 6/105 [00:45<13:25,  8.14s/it][A
+Generating (sequential):   7%|▋         | 7/105 [00:52<12:23,  7.59s/it][A
+Generating (sequential):   8%|▊         | 8/105 [00:57<11:09,  6.90s/it][A
+Generating (sequential):   9%|▊         | 9/105 [01:03<10:27,  6.54s/it][A
+Generating (sequential):  10%|▉         | 10/105 [01:08<09:48,  6.19s/it][A
+Generating (sequential):  10%|█         | 11/105 [01:15<09:56,  6.34s/it][A
+Generating (sequential):  11%|█▏        | 12/105 [01:21<09:51,  6.36s/it][A
+Generating (sequential):  12%|█▏        | 13/105 [01:27<09:32,  6.23s/it][A
+Generating (sequential):  13%|█▎        | 14/105 [01:34<09:48,  6.47s/it][A
+Generating (sequential):  14%|█▍        | 15/105 [01:40<09:26,  6.29s/it][A
+Generating (sequential):  15%|█▌        | 16/105 [01:48<10:03,  6.78s/it][A
+Generating (sequential):  16%|█▌        | 17/105 [01:54<09:39,  6.59s/it][A
+Generating (sequential):  17%|█▋        | 18/105 [02:03<10:34,  7.29s/it][A
+Generating (sequential):  18%|█▊        | 19/105 [02:11<10:42,  7.48s/it][A
+Generating (sequential):  19%|█▉        | 20/105 [02:18<10:18,  7.27s/it][A
+Generating (sequential):  20%|██        | 21/105 [02:26<10:24,  7.43s/it][A
+Generating (sequential):  21%|██        | 22/105 [02:33<10:14,  7.41s/it][A
+Generating (sequential):  22%|██▏       | 23/105 [02:39<09:26,  6.91s/it][A
+Generating (sequential):  23%|██▎       | 24/105 [02:45<09:01,  6.68s/it][A
+Generating (sequential):  24%|██▍       | 25/105 [02:51<08:46,  6.58s/it][A
+Generating (sequential):  25%|██▍       | 26/105 [02:58<08:50,  6.71s/it][A
+Generating (sequential):  26%|██▌       | 27/105 [03:06<08:56,  6.88s/it][A
+Generating (sequential):  27%|██▋       | 28/105 [03:11<08:17,  6.46s/it][A
+Generating (sequential):  28%|██▊       | 29/105 [03:17<08:03,  6.36s/it][A
+Generating (sequential):  29%|██▊       | 30/105 [03:23<07:49,  6.27s/it][A
+Generating (sequential):  30%|██▉       | 31/105 [03:30<07:58,  6.47s/it][A
+Generating (sequential):  30%|███       | 32/105 [03:36<07:37,  6.26s/it][A
+Generating (sequential):  31%|███▏      | 33/105 [03:44<08:02,  6.71s/it][A
+Generating (sequential):  32%|███▏      | 34/105 [03:50<07:39,  6.47s/it][A
+Generating (sequential):  33%|███▎      | 35/105 [03:56<07:24,  6.35s/it][A
+Generating (sequential):  34%|███▍      | 36/105 [04:02<07:15,  6.31s/it][A
+Generating (sequential):  35%|███▌      | 37/105 [04:11<08:00,  7.06s/it][A
+Generating (sequential):  36%|███▌      | 38/105 [04:20<08:29,  7.60s/it][A
+Generating (sequential):  37%|███▋      | 39/105 [04:26<07:54,  7.19s/it][A
+Generating (sequential):  38%|███▊      | 40/105 [04:33<07:43,  7.13s/it][A
+Generating (sequential):  39%|███▉      | 41/105 [04:40<07:40,  7.20s/it][A
+Generating (sequential):  40%|████      | 42/105 [04:47<07:35,  7.23s/it][A
+Generating (sequential):  41%|████      | 43/105 [04:55<07:26,  7.21s/it][A
+Generating (sequential):  42%|████▏     | 44/105 [05:02<07:25,  7.30s/it][A
+Generating (sequential):  43%|████▎     | 45/105 [05:11<07:54,  7.91s/it][A
+Generating (sequential):  44%|████▍     | 46/105 [05:19<07:39,  7.78s/it][A
+Generating (sequential):  45%|████▍     | 47/105 [05:26<07:22,  7.64s/it][A
+Generating (sequential):  46%|████▌     | 48/105 [05:34<07:10,  7.55s/it][A
+Generating (sequential):  47%|████▋     | 49/105 [05:41<07:02,  7.55s/it][A
+Generating (sequential):  48%|████▊     | 50/105 [05:47<06:22,  6.96s/it][A
+Generating (sequential):  49%|████▊     | 51/105 [05:53<06:07,  6.81s/it][A
+Generating (sequential):  50%|████▉     | 52/105 [06:00<06:05,  6.90s/it][A
+Generating (sequential):  50%|█████     | 53/105 [06:07<05:53,  6.80s/it][A
+Generating (sequential):  51%|█████▏    | 54/105 [06:13<05:41,  6.69s/it][A
+Generating (sequential):  52%|█████▏    | 55/105 [06:19<05:25,  6.50s/it][A
+Generating (sequential):  53%|█████▎    | 56/105 [06:26<05:22,  6.58s/it][A
+Generating (sequential):  54%|█████▍    | 57/105 [06:34<05:30,  6.88s/it][A
+Generating (sequential):  55%|█████▌    | 58/105 [06:41<05:25,  6.92s/it][A
+Generating (sequential):  56%|█████▌    | 59/105 [06:47<05:16,  6.89s/it][A
+Generating (sequential):  57%|█████▋    | 60/105 [06:54<05:04,  6.76s/it][A
+Generating (sequential):  58%|█████▊    | 61/105 [07:04<05:35,  7.62s/it][A
+Generating (sequential):  59%|█████▉    | 62/105 [07:13<05:51,  8.18s/it][A
+Generating (sequential):  60%|██████    | 63/105 [07:22<05:48,  8.31s/it][A
+Generating (sequential):  61%|██████    | 64/105 [07:28<05:21,  7.85s/it][A
+Generating (sequential):  62%|██████▏   | 65/105 [07:35<04:57,  7.43s/it][A
+Generating (sequential):  63%|██████▎   | 66/105 [07:41<04:33,  7.01s/it][A
+Generating (sequential):  64%|██████▍   | 67/105 [07:50<04:50,  7.64s/it][A
+Generating (sequential):  65%|██████▍   | 68/105 [07:56<04:28,  7.25s/it][A
+Generating (sequential):  66%|██████▌   | 69/105 [08:05<04:31,  7.54s/it][A
+Generating (sequential):  67%|██████▋   | 70/105 [08:12<04:19,  7.42s/it][A
+Generating (sequential):  68%|██████▊   | 71/105 [08:21<04:28,  7.89s/it][A
+Generating (sequential):  69%|██████▊   | 72/105 [08:28<04:12,  7.66s/it][A
+Generating (sequential):  70%|██████▉   | 73/105 [08:34<03:53,  7.30s/it][A
+Generating (sequential):  70%|███████   | 74/105 [08:41<03:41,  7.14s/it][A
+Generating (sequential):  71%|███████▏  | 75/105 [08:51<03:57,  7.91s/it][A
+Generating (sequential):  72%|███████▏  | 76/105 [08:57<03:38,  7.54s/it][A
+Generating (sequential):  73%|███████▎  | 77/105 [09:04<03:23,  7.27s/it][A
+Generating (sequential):  74%|███████▍  | 78/105 [09:11<03:10,  7.05s/it][A
+Generating (sequential):  75%|███████▌  | 79/105 [09:17<03:00,  6.95s/it][A
+Generating (sequential):  76%|███████▌  | 80/105 [09:24<02:53,  6.96s/it][A
+Generating (sequential):  77%|███████▋  | 81/105 [09:31<02:45,  6.91s/it][A
+Generating (sequential):  78%|███████▊  | 82/105 [09:37<02:35,  6.75s/it][A
+Generating (sequential):  79%|███████▉  | 83/105 [09:44<02:29,  6.78s/it][A
+Generating (sequential):  80%|████████  | 84/105 [09:50<02:17,  6.55s/it][A
+Generating (sequential):  81%|████████  | 85/105 [09:57<02:13,  6.70s/it][A
+Generating (sequential):  82%|████████▏ | 86/105 [10:05<02:13,  7.02s/it][A
+Generating (sequential):  83%|████████▎ | 87/105 [10:13<02:10,  7.24s/it][A
+Generating (sequential):  84%|████████▍ | 88/105 [10:20<02:01,  7.14s/it][A
+Generating (sequential):  85%|████████▍ | 89/105 [10:26<01:50,  6.92s/it][A
+Generating (sequential):  86%|████████▌ | 90/105 [10:32<01:40,  6.73s/it][A
+Generating (sequential):  87%|████████▋ | 91/105 [10:39<01:32,  6.60s/it][A
+Generating (sequential):  88%|████████▊ | 92/105 [10:46<01:26,  6.67s/it][A
+Generating (sequential):  89%|████████▊ | 93/105 [10:52<01:20,  6.68s/it][A
+Generating (sequential):  90%|████████▉ | 94/105 [10:58<01:10,  6.40s/it][A
+Generating (sequential):  90%|█████████ | 95/105 [11:06<01:10,  7.00s/it][A
+Generating (sequential):  91%|█████████▏| 96/105 [11:13<01:01,  6.78s/it][A
+Generating (sequential):  92%|█████████▏| 97/105 [11:19<00:52,  6.53s/it][A
+Generating (sequential):  93%|█████████▎| 98/105 [11:26<00:46,  6.70s/it][A
+Generating (sequential):  94%|█████████▍| 99/105 [11:32<00:40,  6.68s/it][A
+Generating (sequential):  95%|█████████▌| 100/105 [11:39<00:32,  6.51s/it][A
+Generating (sequential):  96%|█████████▌| 101/105 [11:45<00:26,  6.58s/it][A
+Generating (sequential):  97%|█████████▋| 102/105 [11:51<00:19,  6.37s/it][A
+Generating (sequential):  98%|█████████▊| 103/105 [11:59<00:13,  6.70s/it][A
+Generating (sequential):  99%|█████████▉| 104/105 [12:05<00:06,  6.63s/it][A
+Generating (sequential): 100%|██████████| 105/105 [12:12<00:00,  6.63s/it][AGenerating (sequential): 100%|██████████| 105/105 [12:12<00:00,  6.97s/it]
+
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s][A
+Generating (sequential):   1%|          | 1/105 [00:05<09:45,  5.63s/it][A
+Generating (sequential):   2%|▏         | 2/105 [00:12<10:55,  6.37s/it][A
+Generating (sequential):   3%|▎         | 3/105 [00:20<11:43,  6.90s/it][A
+Generating (sequential):   4%|▍         | 4/105 [00:26<11:11,  6.65s/it][A
+Generating (sequential):   5%|▍         | 5/105 [00:33<11:11,  6.71s/it][A
+Generating (sequential):   6%|▌         | 6/105 [00:40<11:33,  7.00s/it][A
+Generating (sequential):   7%|▋         | 7/105 [00:46<10:45,  6.58s/it][A
+Generating (sequential):   8%|▊         | 8/105 [00:52<10:19,  6.38s/it][A
+Generating (sequential):   9%|▊         | 9/105 [00:58<09:56,  6.21s/it][A
+Generating (sequential):  10%|▉         | 10/105 [01:04<09:38,  6.09s/it][A
+Generating (sequential):  10%|█         | 11/105 [01:12<10:42,  6.84s/it][A
+Generating (sequential):  11%|█▏        | 12/105 [01:17<09:53,  6.38s/it][A
+Generating (sequential):  12%|█▏        | 13/105 [01:23<09:27,  6.17s/it][A
+Generating (sequential):  13%|█▎        | 14/105 [01:29<09:11,  6.06s/it][A
+Generating (sequential):  14%|█▍        | 15/105 [01:35<08:55,  5.95s/it][A
+Generating (sequential):  15%|█▌        | 16/105 [01:41<08:48,  5.94s/it][A
+Generating (sequential):  16%|█▌        | 17/105 [01:48<09:18,  6.35s/it][A
+Generating (sequential):  17%|█▋        | 18/105 [01:55<09:36,  6.62s/it][A
+Generating (sequential):  18%|█▊        | 19/105 [02:01<09:07,  6.37s/it][A
+Generating (sequential):  19%|█▉        | 20/105 [02:07<09:00,  6.36s/it][A
+Generating (sequential):  20%|██        | 21/105 [02:14<08:53,  6.35s/it][A
+Generating (sequential):  21%|██        | 22/105 [02:21<09:15,  6.69s/it][A
+Generating (sequential):  22%|██▏       | 23/105 [02:27<09:01,  6.60s/it][A
+Generating (sequential):  23%|██▎       | 24/105 [02:33<08:34,  6.35s/it][A
+Generating (sequential):  24%|██▍       | 25/105 [02:41<09:09,  6.87s/it][A
+Generating (sequential):  25%|██▍       | 26/105 [02:47<08:29,  6.45s/it][A
+Generating (sequential):  26%|██▌       | 27/105 [02:53<08:16,  6.37s/it][A
+Generating (sequential):  27%|██▋       | 28/105 [02:59<08:06,  6.32s/it][A
+Generating (sequential):  28%|██▊       | 29/105 [03:05<07:44,  6.11s/it][A
+Generating (sequential):  29%|██▊       | 30/105 [03:13<08:35,  6.88s/it][A
+Generating (sequential):  30%|██▉       | 31/105 [03:19<08:03,  6.53s/it][A
+Generating (sequential):  30%|███       | 32/105 [03:24<07:29,  6.16s/it][A
+Generating (sequential):  31%|███▏      | 33/105 [03:31<07:25,  6.18s/it][A
+Generating (sequential):  32%|███▏      | 34/105 [03:36<06:53,  5.83s/it][A
+Generating (sequential):  33%|███▎      | 35/105 [03:41<06:47,  5.82s/it][A
+Generating (sequential):  34%|███▍      | 36/105 [03:47<06:39,  5.78s/it][A
+Generating (sequential):  35%|███▌      | 37/105 [03:54<06:46,  5.97s/it][A
+Generating (sequential):  36%|███▌      | 38/105 [04:00<06:41,  6.00s/it][A
+Generating (sequential):  37%|███▋      | 39/105 [04:05<06:32,  5.95s/it][A
+Generating (sequential):  38%|███▊      | 40/105 [04:11<06:26,  5.94s/it][A
+Generating (sequential):  39%|███▉      | 41/105 [04:17<06:13,  5.84s/it][A
+Generating (sequential):  40%|████      | 42/105 [04:24<06:36,  6.29s/it][A
+Generating (sequential):  41%|████      | 43/105 [04:31<06:32,  6.33s/it][A
+Generating (sequential):  42%|████▏     | 44/105 [04:37<06:31,  6.42s/it][A
+Generating (sequential):  43%|████▎     | 45/105 [04:45<06:41,  6.69s/it][A
+Generating (sequential):  44%|████▍     | 46/105 [04:50<06:09,  6.26s/it][A
+Generating (sequential):  45%|████▍     | 47/105 [04:57<06:08,  6.36s/it][A
+Generating (sequential):  46%|████▌     | 48/105 [05:02<05:55,  6.23s/it][A
+Generating (sequential):  47%|████▋     | 49/105 [05:08<05:44,  6.15s/it][A
+Generating (sequential):  48%|████▊     | 50/105 [05:14<05:31,  6.02s/it][A
+Generating (sequential):  49%|████▊     | 51/105 [05:20<05:23,  5.99s/it][A
+Generating (sequential):  50%|████▉     | 52/105 [05:26<05:13,  5.91s/it][A
+Generating (sequential):  50%|█████     | 53/105 [05:32<05:09,  5.94s/it][A
+Generating (sequential):  51%|█████▏    | 54/105 [05:38<05:09,  6.06s/it][A
+Generating (sequential):  52%|█████▏    | 55/105 [05:44<04:58,  5.97s/it][A
+Generating (sequential):  53%|█████▎    | 56/105 [05:50<05:01,  6.15s/it][A
+Generating (sequential):  54%|█████▍    | 57/105 [05:57<04:55,  6.15s/it][A
+Generating (sequential):  55%|█████▌    | 58/105 [06:04<05:00,  6.39s/it][A
+Generating (sequential):  56%|█████▌    | 59/105 [06:10<04:50,  6.32s/it][A
+Generating (sequential):  57%|█████▋    | 60/105 [06:16<04:45,  6.34s/it][A
+Generating (sequential):  58%|█████▊    | 61/105 [06:25<05:13,  7.12s/it][A
+Generating (sequential):  59%|█████▉    | 62/105 [06:31<04:57,  6.91s/it][A
+Generating (sequential):  60%|██████    | 63/105 [06:37<04:35,  6.55s/it][A
+Generating (sequential):  61%|██████    | 64/105 [06:44<04:27,  6.53s/it][A
+Generating (sequential):  62%|██████▏   | 65/105 [06:50<04:21,  6.53s/it][A
+Generating (sequential):  63%|██████▎   | 66/105 [06:58<04:26,  6.82s/it][A
+Generating (sequential):  64%|██████▍   | 67/105 [07:04<04:14,  6.69s/it][A
+Generating (sequential):  65%|██████▍   | 68/105 [07:10<04:02,  6.56s/it][A
+Generating (sequential):  66%|██████▌   | 69/105 [07:18<04:07,  6.88s/it][A
+Generating (sequential):  67%|██████▋   | 70/105 [07:24<03:54,  6.69s/it][A
+Generating (sequential):  68%|██████▊   | 71/105 [07:32<03:55,  6.92s/it][A
+Generating (sequential):  69%|██████▊   | 72/105 [07:37<03:35,  6.52s/it][A
+Generating (sequential):  70%|██████▉   | 73/105 [07:44<03:28,  6.52s/it][A
+Generating (sequential):  70%|███████   | 74/105 [07:49<03:13,  6.24s/it][A
+Generating (sequential):  71%|███████▏  | 75/105 [07:56<03:06,  6.22s/it][A
+Generating (sequential):  72%|███████▏  | 76/105 [08:01<02:52,  5.94s/it][A
+Generating (sequential):  73%|███████▎  | 77/105 [08:06<02:43,  5.85s/it][A
+Generating (sequential):  74%|███████▍  | 78/105 [08:12<02:35,  5.77s/it][A
+Generating (sequential):  75%|███████▌  | 79/105 [08:19<02:41,  6.22s/it][A
+Generating (sequential):  76%|███████▌  | 80/105 [08:25<02:33,  6.15s/it][A
+Generating (sequential):  77%|███████▋  | 81/105 [08:32<02:33,  6.40s/it][A
+Generating (sequential):  78%|███████▊  | 82/105 [08:38<02:25,  6.33s/it][A
+Generating (sequential):  79%|███████▉  | 83/105 [08:44<02:15,  6.17s/it][A
+Generating (sequential):  80%|████████  | 84/105 [08:50<02:08,  6.10s/it][A
+Generating (sequential):  81%|████████  | 85/105 [08:56<02:01,  6.06s/it][A
+Generating (sequential):  82%|████████▏ | 86/105 [09:02<01:55,  6.07s/it][A
+Generating (sequential):  83%|████████▎ | 87/105 [09:09<01:53,  6.31s/it][A
+Generating (sequential):  84%|████████▍ | 88/105 [09:16<01:48,  6.37s/it][A
+Generating (sequential):  85%|████████▍ | 89/105 [09:22<01:41,  6.32s/it][A
+Generating (sequential):  86%|████████▌ | 90/105 [09:28<01:34,  6.30s/it][A
+Generating (sequential):  87%|████████▋ | 91/105 [09:33<01:24,  6.03s/it][A
+Generating (sequential):  88%|████████▊ | 92/105 [09:40<01:22,  6.32s/it][A
+Generating (sequential):  89%|████████▊ | 93/105 [09:47<01:16,  6.40s/it][A
+Generating (sequential):  90%|████████▉ | 94/105 [09:54<01:10,  6.42s/it][A
+Generating (sequential):  90%|█████████ | 95/105 [09:59<01:01,  6.11s/it][A
+Generating (sequential):  91%|█████████▏| 96/105 [10:05<00:54,  6.09s/it][A
+Generating (sequential):  92%|█████████▏| 97/105 [10:13<00:54,  6.79s/it][A
+Generating (sequential):  93%|█████████▎| 98/105 [10:20<00:47,  6.73s/it][A
+Generating (sequential):  94%|█████████▍| 99/105 [10:26<00:39,  6.59s/it][A
+Generating (sequential):  95%|█████████▌| 100/105 [10:33<00:33,  6.77s/it][A
+Generating (sequential):  96%|█████████▌| 101/105 [10:39<00:26,  6.55s/it][A
+Generating (sequential):  97%|█████████▋| 102/105 [10:48<00:21,  7.13s/it][A
+Generating (sequential):  98%|█████████▊| 103/105 [10:56<00:14,  7.26s/it][A
+Generating (sequential):  99%|█████████▉| 104/105 [11:03<00:07,  7.25s/it][A
+Generating (sequential): 100%|██████████| 105/105 [11:08<00:00,  6.79s/it][AGenerating (sequential): 100%|██████████| 105/105 [11:08<00:00,  6.37s/it]
+
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s][A
+Generating (sequential):   1%|          | 1/105 [00:06<11:26,  6.60s/it][A
+Generating (sequential):   2%|▏         | 2/105 [00:13<11:33,  6.73s/it][A
+Generating (sequential):   3%|▎         | 3/105 [00:19<10:57,  6.44s/it][A
+Generating (sequential):   4%|▍         | 4/105 [00:25<10:37,  6.31s/it][A
+Generating (sequential):   5%|▍         | 5/105 [00:32<10:48,  6.48s/it][A
+Generating (sequential):   6%|▌         | 6/105 [00:41<11:59,  7.27s/it][A
+Generating (sequential):   7%|▋         | 7/105 [00:47<11:31,  7.06s/it][A
+Generating (sequential):   8%|▊         | 8/105 [00:55<11:31,  7.13s/it][A
+Generating (sequential):   9%|▊         | 9/105 [01:02<11:39,  7.28s/it][A
+Generating (sequential):  10%|▉         | 10/105 [01:08<10:46,  6.81s/it][A
+Generating (sequential):  10%|█         | 11/105 [01:14<10:22,  6.62s/it][A
+Generating (sequential):  11%|█▏        | 12/105 [01:20<09:46,  6.31s/it][A
+Generating (sequential):  12%|█▏        | 13/105 [01:26<09:41,  6.32s/it][A
+Generating (sequential):  13%|█▎        | 14/105 [01:33<09:49,  6.48s/it][A
+Generating (sequential):  14%|█▍        | 15/105 [01:39<09:21,  6.24s/it][A
+Generating (sequential):  15%|█▌        | 16/105 [01:46<09:39,  6.52s/it][A
+Generating (sequential):  16%|█▌        | 17/105 [01:52<09:16,  6.32s/it][A
+Generating (sequential):  17%|█▋        | 18/105 [02:00<10:10,  7.02s/it][A
+Generating (sequential):  18%|█▊        | 19/105 [02:06<09:30,  6.63s/it][A
+Generating (sequential):  19%|█▉        | 20/105 [02:13<09:29,  6.70s/it][A
+Generating (sequential):  20%|██        | 21/105 [02:19<09:16,  6.63s/it][A
+Generating (sequential):  21%|██        | 22/105 [02:26<09:04,  6.56s/it][A
+Generating (sequential):  22%|██▏       | 23/105 [02:31<08:33,  6.27s/it][A
+Generating (sequential):  23%|██▎       | 24/105 [02:38<08:26,  6.25s/it][A
+Generating (sequential):  24%|██▍       | 25/105 [02:46<09:09,  6.87s/it][A
+Generating (sequential):  25%|██▍       | 26/105 [02:53<09:13,  7.00s/it][A
+Generating (sequential):  26%|██▌       | 27/105 [03:01<09:21,  7.20s/it][A
+Generating (sequential):  27%|██▋       | 28/105 [03:06<08:31,  6.65s/it][A
+Generating (sequential):  28%|██▊       | 29/105 [03:12<08:05,  6.39s/it][A
+Generating (sequential):  29%|██▊       | 30/105 [03:18<07:54,  6.33s/it][A
+Generating (sequential):  30%|██▉       | 31/105 [03:27<08:33,  6.93s/it][A
+Generating (sequential):  30%|███       | 32/105 [03:33<08:21,  6.88s/it][A
+Generating (sequential):  31%|███▏      | 33/105 [03:39<07:49,  6.52s/it][A
+Generating (sequential):  32%|███▏      | 34/105 [03:45<07:36,  6.43s/it][A
+Generating (sequential):  33%|███▎      | 35/105 [03:53<07:49,  6.71s/it][A
+Generating (sequential):  34%|███▍      | 36/105 [03:59<07:43,  6.72s/it][A
+Generating (sequential):  35%|███▌      | 37/105 [04:07<07:49,  6.91s/it][A
+Generating (sequential):  36%|███▌      | 38/105 [04:14<08:01,  7.18s/it][A
+Generating (sequential):  37%|███▋      | 39/105 [04:22<07:55,  7.20s/it][A
+Generating (sequential):  38%|███▊      | 40/105 [04:28<07:35,  7.01s/it][A
+Generating (sequential):  39%|███▉      | 41/105 [04:35<07:24,  6.95s/it][A
+Generating (sequential):  40%|████      | 42/105 [04:44<07:56,  7.56s/it][A
+Generating (sequential):  41%|████      | 43/105 [04:52<07:48,  7.55s/it][A
+Generating (sequential):  42%|████▏     | 44/105 [04:58<07:25,  7.30s/it][A
+Generating (sequential):  43%|████▎     | 45/105 [05:05<07:12,  7.20s/it][A
+Generating (sequential):  44%|████▍     | 46/105 [05:12<06:50,  6.95s/it][A
+Generating (sequential):  45%|████▍     | 47/105 [05:20<07:00,  7.25s/it][A
+Generating (sequential):  46%|████▌     | 48/105 [05:25<06:27,  6.79s/it][A
+Generating (sequential):  47%|████▋     | 49/105 [05:32<06:15,  6.70s/it][A
+Generating (sequential):  48%|████▊     | 50/105 [05:38<05:54,  6.45s/it][A
+Generating (sequential):  49%|████▊     | 51/105 [05:45<06:03,  6.73s/it][A
+Generating (sequential):  50%|████▉     | 52/105 [05:53<06:14,  7.06s/it][A
+Generating (sequential):  50%|█████     | 53/105 [06:00<06:01,  6.96s/it][A
+Generating (sequential):  51%|█████▏    | 54/105 [06:07<06:05,  7.16s/it][A
+Generating (sequential):  52%|█████▏    | 55/105 [06:15<06:01,  7.22s/it][A
+Generating (sequential):  53%|█████▎    | 56/105 [06:23<06:12,  7.61s/it][A
+Generating (sequential):  54%|█████▍    | 57/105 [06:31<06:02,  7.56s/it][A
+Generating (sequential):  55%|█████▌    | 58/105 [06:37<05:38,  7.19s/it][A
+Generating (sequential):  56%|█████▌    | 59/105 [06:43<05:18,  6.92s/it][A
+Generating (sequential):  57%|█████▋    | 60/105 [06:51<05:20,  7.12s/it][A
+Generating (sequential):  58%|█████▊    | 61/105 [06:59<05:24,  7.38s/it][A
+Generating (sequential):  59%|█████▉    | 62/105 [07:06<05:11,  7.25s/it][A
+Generating (sequential):  60%|██████    | 63/105 [07:14<05:18,  7.57s/it][A
+Generating (sequential):  61%|██████    | 64/105 [07:21<05:01,  7.36s/it][A
+Generating (sequential):  62%|██████▏   | 65/105 [07:27<04:43,  7.09s/it][A
+Generating (sequential):  63%|██████▎   | 66/105 [07:35<04:42,  7.25s/it][A
+Generating (sequential):  64%|██████▍   | 67/105 [07:43<04:40,  7.39s/it][A
+Generating (sequential):  65%|██████▍   | 68/105 [07:49<04:22,  7.09s/it][A
+Generating (sequential):  66%|██████▌   | 69/105 [07:57<04:24,  7.36s/it][A
+Generating (sequential):  67%|██████▋   | 70/105 [08:06<04:33,  7.82s/it][A
+Generating (sequential):  68%|██████▊   | 71/105 [08:14<04:25,  7.81s/it][A
+Generating (sequential):  69%|██████▊   | 72/105 [08:21<04:15,  7.75s/it][A
+Generating (sequential):  70%|██████▉   | 73/105 [08:28<03:55,  7.35s/it][A
+Generating (sequential):  70%|███████   | 74/105 [08:34<03:40,  7.10s/it][A
+Generating (sequential):  71%|███████▏  | 75/105 [08:42<03:36,  7.22s/it][A
+Generating (sequential):  72%|███████▏  | 76/105 [08:49<03:29,  7.24s/it][A
+Generating (sequential):  73%|███████▎  | 77/105 [08:55<03:14,  6.95s/it][A
+Generating (sequential):  74%|███████▍  | 78/105 [09:02<03:03,  6.78s/it][A
+Generating (sequential):  75%|███████▌  | 79/105 [09:08<02:55,  6.74s/it][A
+Generating (sequential):  76%|███████▌  | 80/105 [09:15<02:49,  6.79s/it][A
+Generating (sequential):  77%|███████▋  | 81/105 [09:23<02:48,  7.03s/it][A
+Generating (sequential):  78%|███████▊  | 82/105 [09:29<02:38,  6.88s/it][A
+Generating (sequential):  79%|███████▉  | 83/105 [09:36<02:29,  6.81s/it][A
+Generating (sequential):  80%|████████  | 84/105 [09:42<02:20,  6.70s/it][A
+Generating (sequential):  81%|████████  | 85/105 [09:49<02:12,  6.64s/it][A
+Generating (sequential):  82%|████████▏ | 86/105 [09:57<02:12,  6.99s/it][A
+Generating (sequential):  83%|████████▎ | 87/105 [10:03<01:59,  6.65s/it][A
+Generating (sequential):  84%|████████▍ | 88/105 [10:09<01:51,  6.59s/it][A
+Generating (sequential):  85%|████████▍ | 89/105 [10:15<01:44,  6.52s/it][A
+Generating (sequential):  86%|████████▌ | 90/105 [10:22<01:39,  6.62s/it][A
+Generating (sequential):  87%|████████▋ | 91/105 [10:31<01:42,  7.34s/it][A
+Generating (sequential):  88%|████████▊ | 92/105 [10:39<01:35,  7.35s/it][A
+Generating (sequential):  89%|████████▊ | 93/105 [10:45<01:25,  7.09s/it][A
+Generating (sequential):  90%|████████▉ | 94/105 [10:52<01:17,  7.03s/it][A
+Generating (sequential):  90%|█████████ | 95/105 [10:59<01:11,  7.15s/it][A
+Generating (sequential):  91%|█████████▏| 96/105 [11:05<01:00,  6.76s/it][A
+Generating (sequential):  92%|█████████▏| 97/105 [11:12<00:53,  6.65s/it][A
+Generating (sequential):  93%|█████████▎| 98/105 [11:20<00:49,  7.00s/it][A
+Generating (sequential):  94%|█████████▍| 99/105 [11:26<00:41,  6.87s/it][A
+Generating (sequential):  95%|█████████▌| 100/105 [11:34<00:36,  7.31s/it][A
+Generating (sequential):  96%|█████████▌| 101/105 [11:43<00:30,  7.61s/it][A
+Generating (sequential):  97%|█████████▋| 102/105 [11:50<00:22,  7.36s/it][A
+Generating (sequential):  98%|█████████▊| 103/105 [11:57<00:14,  7.29s/it][A
+Generating (sequential):  99%|█████████▉| 104/105 [12:04<00:07,  7.32s/it][A
+Generating (sequential): 100%|██████████| 105/105 [12:12<00:00,  7.52s/it][AGenerating (sequential): 100%|██████████| 105/105 [12:12<00:00,  6.98s/it]
+
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s][A
+Generating (sequential):   1%|          | 1/105 [00:02<04:18,  2.49s/it][A
+Generating (sequential):   2%|▏         | 2/105 [00:05<04:38,  2.71s/it][A
+Generating (sequential):   3%|▎         | 3/105 [00:10<06:19,  3.72s/it][A
+Generating (sequential):   4%|▍         | 4/105 [00:12<05:31,  3.28s/it][A
+Generating (sequential):   5%|▍         | 5/105 [00:15<05:15,  3.16s/it][A
+Generating (sequential):   6%|▌         | 6/105 [00:18<05:11,  3.14s/it][A
+Generating (sequential):   7%|▋         | 7/105 [00:23<06:07,  3.75s/it][A
+Generating (sequential):   8%|▊         | 8/105 [00:26<05:30,  3.41s/it][A
+Generating (sequential):   9%|▊         | 9/105 [00:28<04:45,  2.98s/it][A
+Generating (sequential):  10%|▉         | 10/105 [00:30<04:24,  2.79s/it][A
+Generating (sequential):  10%|█         | 11/105 [00:33<04:23,  2.80s/it][A
+Generating (sequential):  11%|█▏        | 12/105 [00:36<04:04,  2.62s/it][A
+Generating (sequential):  12%|█▏        | 13/105 [00:39<04:30,  2.94s/it][A
+Generating (sequential):  13%|█▎        | 14/105 [00:42<04:17,  2.83s/it][A
+Generating (sequential):  14%|█▍        | 15/105 [00:44<04:03,  2.71s/it][A
+Generating (sequential):  15%|█▌        | 16/105 [00:49<05:03,  3.41s/it][A
+Generating (sequential):  16%|█▌        | 17/105 [00:52<04:50,  3.30s/it][A
+Generating (sequential):  17%|█▋        | 18/105 [00:56<04:58,  3.43s/it][A
+Generating (sequential):  18%|█▊        | 19/105 [00:59<04:34,  3.19s/it][A
+Generating (sequential):  19%|█▉        | 20/105 [01:02<04:40,  3.30s/it][A
+Generating (sequential):  20%|██        | 21/105 [01:07<05:26,  3.89s/it][A
+Generating (sequential):  21%|██        | 22/105 [01:10<04:42,  3.40s/it][A
+Generating (sequential):  22%|██▏       | 23/105 [01:12<04:21,  3.18s/it][A
+Generating (sequential):  23%|██▎       | 24/105 [01:15<04:08,  3.07s/it][A
+Generating (sequential):  24%|██▍       | 25/105 [01:18<03:52,  2.91s/it][A
+Generating (sequential):  25%|██▍       | 26/105 [01:23<04:47,  3.63s/it][A
+Generating (sequential):  26%|██▌       | 27/105 [01:25<04:12,  3.24s/it][A
+Generating (sequential):  27%|██▋       | 28/105 [01:28<03:54,  3.05s/it][A
+Generating (sequential):  28%|██▊       | 29/105 [01:31<03:51,  3.05s/it][A
+Generating (sequential):  29%|██▊       | 30/105 [01:33<03:32,  2.83s/it][A
+Generating (sequential):  30%|██▉       | 31/105 [01:36<03:14,  2.63s/it][A
+Generating (sequential):  30%|███       | 32/105 [01:38<03:03,  2.51s/it][A
+Generating (sequential):  31%|███▏      | 33/105 [01:40<02:53,  2.40s/it][A
+Generating (sequential):  32%|███▏      | 34/105 [01:43<03:04,  2.59s/it][A
+Generating (sequential):  33%|███▎      | 35/105 [01:46<03:09,  2.70s/it][A
+Generating (sequential):  34%|███▍      | 36/105 [01:49<03:17,  2.86s/it][A
+Generating (sequential):  35%|███▌      | 37/105 [01:53<03:25,  3.02s/it][A
+Generating (sequential):  36%|███▌      | 38/105 [01:57<03:53,  3.48s/it][A
+Generating (sequential):  37%|███▋      | 39/105 [02:00<03:30,  3.20s/it][A
+Generating (sequential):  38%|███▊      | 40/105 [02:03<03:27,  3.20s/it][A
+Generating (sequential):  39%|███▉      | 41/105 [02:05<03:11,  3.00s/it][A
+Generating (sequential):  40%|████      | 42/105 [02:08<03:03,  2.91s/it][A
+Generating (sequential):  41%|████      | 43/105 [02:11<02:55,  2.83s/it][A
+Generating (sequential):  42%|████▏     | 44/105 [02:13<02:49,  2.78s/it][A
+Generating (sequential):  43%|████▎     | 45/105 [02:16<02:46,  2.77s/it][A
+Generating (sequential):  44%|████▍     | 46/105 [02:19<02:46,  2.82s/it][A
+Generating (sequential):  45%|████▍     | 47/105 [02:22<02:41,  2.78s/it][A
+Generating (sequential):  46%|████▌     | 48/105 [02:25<02:49,  2.97s/it][A
+Generating (sequential):  47%|████▋     | 49/105 [02:27<02:31,  2.71s/it][A
+Generating (sequential):  48%|████▊     | 50/105 [02:30<02:27,  2.67s/it][A
+Generating (sequential):  49%|████▊     | 51/105 [02:32<02:19,  2.58s/it][A
+Generating (sequential):  50%|████▉     | 52/105 [02:37<02:52,  3.25s/it][A
+Generating (sequential):  50%|█████     | 53/105 [02:40<02:39,  3.06s/it][A
+Generating (sequential):  51%|█████▏    | 54/105 [02:45<03:10,  3.73s/it][A
+Generating (sequential):  52%|█████▏    | 55/105 [02:48<02:49,  3.40s/it][A
+Generating (sequential):  53%|█████▎    | 56/105 [02:50<02:39,  3.25s/it][A
+Generating (sequential):  54%|█████▍    | 57/105 [02:53<02:31,  3.15s/it][A
+Generating (sequential):  55%|█████▌    | 58/105 [02:56<02:26,  3.12s/it][A
+Generating (sequential):  56%|█████▌    | 59/105 [03:03<03:04,  4.02s/it][A
+Generating (sequential):  57%|█████▋    | 60/105 [03:07<03:06,  4.15s/it][A
+Generating (sequential):  58%|█████▊    | 61/105 [03:12<03:15,  4.44s/it][A
+Generating (sequential):  59%|█████▉    | 62/105 [03:17<03:10,  4.44s/it][A
+Generating (sequential):  60%|██████    | 63/105 [03:21<03:01,  4.32s/it][A
+Generating (sequential):  61%|██████    | 64/105 [03:26<03:06,  4.54s/it][A
+Generating (sequential):  62%|██████▏   | 65/105 [03:30<02:56,  4.41s/it][A
+Generating (sequential):  63%|██████▎   | 66/105 [03:34<02:52,  4.43s/it][A
+Generating (sequential):  64%|██████▍   | 67/105 [03:37<02:32,  4.02s/it][A
+Generating (sequential):  65%|██████▍   | 68/105 [03:40<02:10,  3.53s/it][A
+Generating (sequential):  66%|██████▌   | 69/105 [03:42<01:56,  3.25s/it][A
+Generating (sequential):  67%|██████▋   | 70/105 [03:45<01:52,  3.23s/it][A
+Generating (sequential):  68%|██████▊   | 71/105 [03:49<01:48,  3.20s/it][A
+Generating (sequential):  69%|██████▊   | 72/105 [03:52<01:49,  3.33s/it][A
+Generating (sequential):  70%|██████▉   | 73/105 [03:57<01:59,  3.74s/it][A
+Generating (sequential):  70%|███████   | 74/105 [04:02<02:10,  4.21s/it][A
+Generating (sequential):  71%|███████▏  | 75/105 [04:06<02:04,  4.16s/it][A
+Generating (sequential):  72%|███████▏  | 76/105 [04:09<01:49,  3.76s/it][A
+Generating (sequential):  73%|███████▎  | 77/105 [04:12<01:41,  3.64s/it][A
+Generating (sequential):  74%|███████▍  | 78/105 [04:15<01:31,  3.41s/it][A
+Generating (sequential):  75%|███████▌  | 79/105 [04:18<01:20,  3.08s/it][A
+Generating (sequential):  76%|███████▌  | 80/105 [04:21<01:17,  3.08s/it][A
+Generating (sequential):  77%|███████▋  | 81/105 [04:23<01:09,  2.90s/it][A
+Generating (sequential):  78%|███████▊  | 82/105 [04:28<01:22,  3.58s/it][A
+Generating (sequential):  79%|███████▉  | 83/105 [04:33<01:27,  3.96s/it][A
+Generating (sequential):  80%|████████  | 84/105 [04:36<01:17,  3.70s/it][A
+Generating (sequential):  81%|████████  | 85/105 [04:39<01:09,  3.46s/it][A
+Generating (sequential):  82%|████████▏ | 86/105 [04:42<01:03,  3.32s/it][A
+Generating (sequential):  83%|████████▎ | 87/105 [04:44<00:53,  2.97s/it][A
+Generating (sequential):  84%|████████▍ | 88/105 [04:49<00:58,  3.43s/it][A
+Generating (sequential):  85%|████████▍ | 89/105 [04:52<00:52,  3.27s/it][A
+Generating (sequential):  86%|████████▌ | 90/105 [04:55<00:47,  3.18s/it][A
+Generating (sequential):  87%|████████▋ | 91/105 [05:00<00:55,  3.95s/it][A
+Generating (sequential):  88%|████████▊ | 92/105 [05:06<00:56,  4.34s/it][A
+Generating (sequential):  89%|████████▊ | 93/105 [05:08<00:46,  3.86s/it][A
+Generating (sequential):  90%|████████▉ | 94/105 [05:11<00:39,  3.59s/it][A
+Generating (sequential):  90%|█████████ | 95/105 [05:16<00:38,  3.82s/it][A
+Generating (sequential):  91%|█████████▏| 96/105 [05:21<00:38,  4.24s/it][A
+Generating (sequential):  92%|█████████▏| 97/105 [05:23<00:29,  3.66s/it][A
+Generating (sequential):  93%|█████████▎| 98/105 [05:26<00:24,  3.48s/it][A
+Generating (sequential):  94%|█████████▍| 99/105 [05:30<00:22,  3.69s/it][A
+Generating (sequential):  95%|█████████▌| 100/105 [05:34<00:18,  3.61s/it][A
+Generating (sequential):  96%|█████████▌| 101/105 [05:39<00:15,  3.97s/it][A
+Generating (sequential):  97%|█████████▋| 102/105 [05:44<00:12,  4.28s/it][A
+Generating (sequential):  98%|█████████▊| 103/105 [05:49<00:09,  4.56s/it][A
+Generating (sequential):  99%|█████████▉| 104/105 [05:54<00:04,  4.61s/it][A
+Generating (sequential): 100%|██████████| 105/105 [05:59<00:00,  4.77s/it][AGenerating (sequential): 100%|██████████| 105/105 [05:59<00:00,  3.42s/it]
+
+Generating (sequential):   0%|          | 0/105 [00:00<?, ?it/s][A
+Generating (sequential):   1%|          | 1/105 [00:04<08:26,  4.87s/it][A
+Generating (sequential):   2%|▏         | 2/105 [00:11<09:41,  5.64s/it][A
+Generating (sequential):   3%|▎         | 3/105 [00:17<09:54,  5.83s/it][A
+Generating (sequential):   4%|▍         | 4/105 [00:24<10:41,  6.35s/it][A
+Generating (sequential):   5%|▍         | 5/105 [00:30<10:21,  6.22s/it][A
+Generating (sequential):   6%|▌         | 6/105 [00:36<10:22,  6.28s/it][A
+Generating (sequential):   7%|▋         | 7/105 [00:42<10:08,  6.21s/it][A
+Generating (sequential):   8%|▊         | 8/105 [00:48<09:36,  5.95s/it][A
+Generating (sequential):   9%|▊         | 9/105 [00:54<09:45,  6.10s/it][A
+Generating (sequential):  10%|▉         | 10/105 [00:59<09:11,  5.81s/it][A
+Generating (sequential):  10%|█         | 11/105 [01:05<09:15,  5.91s/it][A
+Generating (sequential):  11%|█▏        | 12/105 [01:11<08:58,  5.80s/it][A
+Generating (sequential):  12%|█▏        | 13/105 [01:16<08:31,  5.56s/it][A
+Generating (sequential):  13%|█▎        | 14/105 [01:22<08:28,  5.59s/it][A
+Generating (sequential):  14%|█▍        | 15/105 [01:27<08:12,  5.47s/it][A
+Generating (sequential):  15%|█▌        | 16/105 [01:32<08:09,  5.50s/it][A
+Generating (sequential):  16%|█▌        | 17/105 [01:37<07:50,  5.35s/it][A
+Generating (sequential):  17%|█▋        | 18/105 [01:45<08:56,  6.17s/it][A
+Generating (sequential):  18%|█▊        | 19/105 [01:51<08:26,  5.89s/it][A
+Generating (sequential):  19%|█▉        | 20/105 [01:56<08:09,  5.76s/it][A
+Generating (sequential):  20%|██        | 21/105 [02:01<07:52,  5.63s/it][A
+Generating (sequential):  21%|██        | 22/105 [02:07<07:51,  5.68s/it][A
+Generating (sequential):  22%|██▏       | 23/105 [02:13<07:50,  5.74s/it][A
+Generating (sequential):  23%|██▎       | 24/105 [02:18<07:30,  5.56s/it][A
+Generating (sequential):  24%|██▍       | 25/105 [02:24<07:33,  5.67s/it][A
+Generating (sequential):  25%|██▍       | 26/105 [02:30<07:25,  5.64s/it][A
+Generating (sequential):  26%|██▌       | 27/105 [02:36<07:24,  5.70s/it][A
+Generating (sequential):  27%|██▋       | 28/105 [02:42<07:25,  5.79s/it][A
+Generating (sequential):  28%|██▊       | 29/105 [02:47<07:20,  5.80s/it][A
+Generating (sequential):  29%|██▊       | 30/105 [02:52<06:56,  5.56s/it][A
+Generating (sequential):  30%|██▉       | 31/105 [02:57<06:36,  5.36s/it][A
+Generating (sequential):  30%|███       | 32/105 [03:02<06:27,  5.31s/it][A
+Generating (sequential):  31%|███▏      | 33/105 [03:08<06:23,  5.33s/it][A
+Generating (sequential):  32%|███▏      | 34/105 [03:12<06:04,  5.13s/it][A
+Generating (sequential):  33%|███▎      | 35/105 [03:18<05:57,  5.10s/it][A
+Generating (sequential):  34%|███▍      | 36/105 [03:23<06:03,  5.27s/it][A
+Generating (sequential):  35%|███▌      | 37/105 [03:29<06:18,  5.56s/it][A
+Generating (sequential):  36%|███▌      | 38/105 [03:36<06:30,  5.83s/it][A
+Generating (sequential):  37%|███▋      | 39/105 [03:42<06:22,  5.80s/it][A
+Generating (sequential):  38%|███▊      | 40/105 [03:47<06:07,  5.65s/it][A
+Generating (sequential):  39%|███▉      | 41/105 [03:54<06:22,  5.98s/it][A
+Generating (sequential):  40%|████      | 42/105 [04:00<06:20,  6.04s/it][A
+Generating (sequential):  41%|████      | 43/105 [04:06<06:13,  6.02s/it][A
+Generating (sequential):  42%|████▏     | 44/105 [04:11<05:50,  5.74s/it][A
+Generating (sequential):  43%|████▎     | 45/105 [04:17<05:50,  5.85s/it][A
+Generating (sequential):  44%|████▍     | 46/105 [04:23<05:39,  5.75s/it][A
+Generating (sequential):  45%|████▍     | 47/105 [04:28<05:34,  5.77s/it][A
+Generating (sequential):  46%|████▌     | 48/105 [04:34<05:21,  5.64s/it][A
+Generating (sequential):  47%|████▋     | 49/105 [04:39<05:15,  5.63s/it][A
+Generating (sequential):  48%|████▊     | 50/105 [04:46<05:19,  5.80s/it][A
+Generating (sequential):  49%|████▊     | 51/105 [04:51<05:00,  5.56s/it][A
+Generating (sequential):  50%|████▉     | 52/105 [04:56<04:53,  5.53s/it][A
+Generating (sequential):  50%|█████     | 53/105 [05:02<04:53,  5.65s/it][A
+Generating (sequential):  51%|█████▏    | 54/105 [05:07<04:41,  5.53s/it][A
+Generating (sequential):  52%|█████▏    | 55/105 [05:13<04:36,  5.54s/it][A
+Generating (sequential):  53%|█████▎    | 56/105 [05:18<04:31,  5.54s/it][A
+Generating (sequential):  54%|█████▍    | 57/105 [05:24<04:28,  5.59s/it][A
+Generating (sequential):  55%|█████▌    | 58/105 [05:31<04:39,  5.95s/it][A
+Generating (sequential):  56%|█████▌    | 59/105 [05:37<04:38,  6.06s/it][A
+Generating (sequential):  57%|█████▋    | 60/105 [05:44<04:39,  6.20s/it][A
+Generating (sequential):  58%|█████▊    | 61/105 [05:49<04:25,  6.02s/it][A
+Generating (sequential):  59%|█████▉    | 62/105 [05:55<04:15,  5.94s/it][A
+Generating (sequential):  60%|██████    | 63/105 [06:01<04:09,  5.94s/it][A
+Generating (sequential):  61%|██████    | 64/105 [06:06<03:59,  5.84s/it][A
+Generating (sequential):  62%|██████▏   | 65/105 [06:12<03:47,  5.68s/it][A
+Generating (sequential):  63%|██████▎   | 66/105 [06:18<03:45,  5.79s/it][A
+Generating (sequential):  64%|██████▍   | 67/105 [06:24<03:41,  5.82s/it][A
+Generating (sequential):  65%|██████▍   | 68/105 [06:29<03:31,  5.71s/it][A
+Generating (sequential):  66%|██████▌   | 69/105 [06:36<03:41,  6.14s/it][A
+Generating (sequential):  67%|██████▋   | 70/105 [06:42<03:35,  6.14s/it][A
+Generating (sequential):  68%|██████▊   | 71/105 [06:49<03:29,  6.16s/it][A
+Generating (sequential):  69%|██████▊   | 72/105 [06:54<03:16,  5.95s/it][A
+Generating (sequential):  70%|██████▉   | 73/105 [07:00<03:10,  5.95s/it][A
+Generating (sequential):  70%|███████   | 74/105 [07:06<03:00,  5.82s/it][A
+Generating (sequential):  71%|███████▏  | 75/105 [07:12<02:57,  5.92s/it][A
+Generating (sequential):  72%|███████▏  | 76/105 [07:17<02:47,  5.78s/it][A
+Generating (sequential):  73%|███████▎  | 77/105 [07:22<02:35,  5.57s/it][A
+Generating (sequential):  74%|███████▍  | 78/105 [07:28<02:28,  5.49s/it][A
+Generating (sequential):  75%|███████▌  | 79/105 [07:33<02:20,  5.40s/it][A
+Generating (sequential):  76%|███████▌  | 80/105 [07:39<02:24,  5.76s/it][A
+Generating (sequential):  77%|███████▋  | 81/105 [07:46<02:24,  6.01s/it][A
+Generating (sequential):  78%|███████▊  | 82/105 [07:51<02:12,  5.78s/it][A
+Generating (sequential):  79%|███████▉  | 83/105 [07:57<02:07,  5.80s/it][A
+Generating (sequential):  80%|████████  | 84/105 [08:02<01:57,  5.61s/it][A
+Generating (sequential):  81%|████████  | 85/105 [08:08<01:53,  5.66s/it][A
+Generating (sequential):  82%|████████▏ | 86/105 [08:13<01:46,  5.59s/it][A
+Generating (sequential):  83%|████████▎ | 87/105 [08:20<01:47,  5.96s/it][A
+Generating (sequential):  84%|████████▍ | 88/105 [08:26<01:39,  5.87s/it][A
+Generating (sequential):  85%|████████▍ | 89/105 [08:32<01:32,  5.80s/it][A
+Generating (sequential):  86%|████████▌ | 90/105 [08:37<01:27,  5.80s/it][A
+Generating (sequential):  87%|████████▋ | 91/105 [08:44<01:25,  6.11s/it][A
+Generating (sequential):  88%|████████▊ | 92/105 [08:50<01:18,  6.06s/it][A
+Generating (sequential):  89%|████████▊ | 93/105 [08:56<01:11,  5.92s/it][A
+Generating (sequential):  90%|████████▉ | 94/105 [09:01<01:03,  5.74s/it][A
+Generating (sequential):  90%|█████████ | 95/105 [09:06<00:54,  5.50s/it][A
+Generating (sequential):  91%|█████████▏| 96/105 [09:10<00:46,  5.15s/it][A
+Generating (sequential):  92%|█████████▏| 97/105 [09:16<00:42,  5.35s/it][A
+Generating (sequential):  93%|█████████▎| 98/105 [09:22<00:37,  5.42s/it][A
+Generating (sequential):  94%|█████████▍| 99/105 [09:27<00:32,  5.49s/it][A
+Generating (sequential):  95%|█████████▌| 100/105 [09:34<00:28,  5.68s/it][A
+Generating (sequential):  96%|█████████▌| 101/105 [09:40<00:23,  5.85s/it][A
+Generating (sequential):  97%|█████████▋| 102/105 [09:45<00:16,  5.63s/it][A
+Generating (sequential):  98%|█████████▊| 103/105 [09:51<00:11,  5.85s/it][A
+Generating (sequential):  99%|█████████▉| 104/105 [09:57<00:05,  5.94s/it][A
+Generating (sequential): 100%|██████████| 105/105 [10:03<00:00,  5.86s/it][AGenerating (sequential): 100%|██████████| 105/105 [10:03<00:00,  5.75s/it]
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+
+compare scorer parallel:   0%|          | 0/210 [00:00<?, ?it/s][A/home/hdl/project/autosep/scripts/run_pipeline.sh: line 82: 1263912 Killed                  python autosep/main.py --data_dir "$DATA_DIR" --task_name "$DATASET" --model "sglang_qwen" --gradient_model "sglang_qwen" --n_train "$N_TRAIN" --n_val "$N_VAL" --n_test "$N_TEST_AUTOSEP" --rounds "$ROUNDS" --beam_size "$BEAM_SIZE" --minibatch_size "$MINIBATCH_SIZE" --n_gradients "$N_GRADIENTS" --mc_samples_per_step "$MC_SAMPLES" --max_expansion_factor "$MAX_EXPANSION" --temperature "$AUTOSEP_TEMP" --max_threads "$AUTOSEP_THREADS" --out_num "$OUT_NUM" $TEST_EVAL_FLAG

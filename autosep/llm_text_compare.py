@@ -3,12 +3,14 @@ import os.path
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 from tqdm import tqdm
-import concurrent.futures
 import json
 import random
 import argparse
 import generator
 import api_utils as utils
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 
 def select_k_from_n_excluding_i(n, k, i):
@@ -63,15 +65,13 @@ def predict_with_compare(true_ex, false_ex, prompt, attrs, model_name='gemini'):
 def run_evaluate(true_exs, false_exs, prompt, attrs, model_name='gemini'):
     trues, falses, preds = [], [], []
 
-    with concurrent.futures.ProcessPoolExecutor(max_workers=8) as executor:
-        futures = [executor.submit(predict_with_compare, true_ex, false_ex, prompt, attrs, model_name)
-                   for true_ex in true_exs for false_ex in false_exs[f'{true_ex}']]
-
-        for i, future in tqdm(enumerate(concurrent.futures.as_completed(futures)),
-                              total=len(futures), desc='running evaluation on all exs combinations'):
-            answer, true_ex, false_ex, prompt = future.result()
-            trues.append(true_ex)
-            falses.append(false_ex)
+    # 纯顺序执行，避免多进程死锁
+    for true_ex in tqdm(true_exs, desc='running evaluation on all exs combinations'):
+        for false_ex in false_exs[f'{true_ex}']:
+            answer, ret_true_ex, ret_false_ex, ret_prompt = predict_with_compare(
+                true_ex, false_ex, prompt, attrs, model_name)
+            trues.append(ret_true_ex)
+            falses.append(ret_false_ex)
             preds.append(answer)
 
     return trues, falses, preds

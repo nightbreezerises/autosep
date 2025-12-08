@@ -4,7 +4,7 @@
 # 环境配置
 environment:
   conda_path: /home/hdl/miniconda3  # conda 安装路径
-  conda_env: autosep                 # conda 环境名称
+  conda_env: autosep_qwen                 # conda 环境名称
 
 # 路径配置 (支持相对路径，相对于项目根目录)
 paths:
@@ -16,11 +16,11 @@ paths:
 # 细粒度分类: cub, dog, flower, car, pet, aircraft, food, birdsnap
 # 通用分类:   caltech101, caltech256, dtd, eurosat, ucf, sun397
 # ImageNet:   imagenet_1k, imagenet_a, imagenet_r, imagenet_sketch, imagenet_v2
-dataset: cub
+dataset: dog
 
 # 模型名称
 # 支持，千问系列：Qwen3-VL-8B-Instruct，Qwen2.5-VL-7B-Instruct
-model: Qwen3-VL-8B-Instruct
+model: Qwen2.5-VL-7B-Instruct
 
 # AutoSEP 优化参数 (autosep/main.py)
 autosep:

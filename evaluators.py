@@ -3,9 +3,11 @@ import math
 import numpy as np
 import random
 from tqdm import tqdm
-import concurrent.futures
 import requests
 import scorers
+
+# 注意: 已移除 concurrent.futures，改为纯顺序执行
+# 原因: 本地 CUDA 模型无法在多进程间共享，fork 会导致死锁和僵尸进程
 
 
 class SuccessiveHalvingEvaluator:
@@ -36,8 +38,7 @@ class SuccessiveHalvingEvaluator:
                 try:
                     scores = scorer(predictor, S, sample, pred_prompts, attribute_cache, max_threads=max_threads)
                     break
-                except (concurrent.futures.process.BrokenProcessPool, requests.exceptions.SSLError,
-                        urllib3.exceptions.MaxRetryError):
+                except (requests.exceptions.SSLError, urllib3.exceptions.MaxRetryError):
                     pass
 
             average = np.mean(scores)
@@ -120,8 +121,7 @@ class SuccessiveRejectsEvaluator:
                                         pred_prompts, attribute_cache, max_threads=max_threads)
                         num_attempts = 10
                         break
-                    except (concurrent.futures.process.BrokenProcessPool, requests.exceptions.SSLError,
-                            urllib3.exceptions.MaxRetryError) as e:
+                    except (requests.exceptions.SSLError, urllib3.exceptions.MaxRetryError) as e:
                         print(f'score exception failed: {e}')
 
                 current_usage += (len(selected_prompts) * len(selected_data))
@@ -219,8 +219,7 @@ class UCBBanditEvaluator:
                                     max_threads=max_threads, model_name=self.config['model'])
                     num_attempts = 10
                     break
-                except (concurrent.futures.process.BrokenProcessPool, requests.exceptions.SSLError,
-                        urllib3.exceptions.MaxRetryError) as e:
+                except (requests.exceptions.SSLError, urllib3.exceptions.MaxRetryError) as e:
                     print(f'score exception failed: {e}')
 
             bandit_algo.update(sampled_prompts_idx, scores)
@@ -247,8 +246,7 @@ class BruteForceEvaluator:
                                 model_name=self.config['model'])
                 num_attempts = 10
                 return scores
-            except (concurrent.futures.process.BrokenProcessPool, requests.exceptions.SSLError,
-                    urllib3.exceptions.MaxRetryError) as e:
+            except (requests.exceptions.SSLError, urllib3.exceptions.MaxRetryError) as e:
                 print(f'score exception failed: {e}')
         return [0 for _ in range(len(prompts))]
 
@@ -262,6 +260,6 @@ class LLMEvaluator:
             try:
                 scores = scorer(prompts, self.config)
                 break
-            except (concurrent.futures.process.BrokenProcessPool, requests.exceptions.SSLError, urllib3.exceptions.MaxRetryError):
+            except (requests.exceptions.SSLError, urllib3.exceptions.MaxRetryError):
                 pass
         return scores

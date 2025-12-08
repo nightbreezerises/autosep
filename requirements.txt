@@ -1,11 +1,25 @@
-clip
-google-genai==1.2.0
-google-generativeai==0.8.4
-google-api-core==2.24.1
-openai==1.64.0
-python-liquid==1.13.0
-sglang
-torch==2.5.1
-torchvision==0.20.1
-transformers==4.50.0
-scikit-learn==1.5.1
+# Core ML dependencies
+torch
+torchvision
+transformers>=4.50.0
+
+# Qwen VL dependencies
+qwen-vl-utils
+accelerate
+
+# Image processing
+Pillow
+scikit-image
+scikit-learn
+
+# API clients (optional, for cloud models)
+openai
+google-genai
+google-generativeai
+google-api-core
+
+# Utilities
+python-liquid
+pyyaml
+numpy
+matplotlib
